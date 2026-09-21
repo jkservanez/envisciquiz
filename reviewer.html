@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Environmental Science Reviewer</title>
+<style>
+:root{color-scheme:light;--page:#f1f5f9;--surface:#fff;--ink:#172033;--muted:#526176;--line:#dbe3ef;--accent:#1d4ed8;--accent-soft:#eff6ff;--shadow:0 3px 12px rgba(15,23,42,.06)}
+:root[data-theme="dark"]{color-scheme:dark;--page:#0b1220;--surface:#141f31;--ink:#f1f5f9;--muted:#c1ccdc;--line:#2b3a50;--accent:#93c5fd;--accent-soft:#1a2c46;--shadow:0 3px 12px rgba(0,0,0,.15)}
+*{box-sizing:border-box}
+body{margin:0;padding:clamp(12px,3vw,30px);background:var(--page);color:var(--ink);font:16px/1.7 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:1000px;margin:0 auto;background:var(--surface);padding:clamp(18px,4vw,42px);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+.nav{display:flex;gap:10px;margin:0 0 24px;flex-wrap:wrap;align-items:center}
+.nav a,.theme-toggle{display:inline-block;background:var(--accent);color:#fff;padding:11px 18px;border:0;border-radius:9px;text-decoration:none;font:inherit;font-weight:700;cursor:pointer}
+.theme-toggle{margin-left:auto}
+.theme-toggle:focus-visible,.nav a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+h1{font-size:clamp(1.7rem,4vw,2.35rem);line-height:1.2;letter-spacing:-.025em;margin:0 0 8px;color:var(--accent)}
+h2{margin:34px 0 16px;padding:0 0 10px;border-bottom:2px solid var(--line);font-size:clamp(1.25rem,3vw,1.6rem);line-height:1.3}
+h3{margin:25px 0 12px;color:var(--accent);font-size:1.15rem}
+.intro{margin:0 0 14px;color:var(--muted)}
+.term-card{display:grid;grid-template-columns:38px minmax(0,1fr);gap:13px;align-items:start;margin:0 0 12px;padding:16px 18px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.term-number{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:9px;background:var(--accent-soft);color:var(--accent);font-weight:800;font-size:.9rem}
+.term-content{min-width:0}
+.term-content h4{margin:2px 0 5px;font-size:1.04rem;line-height:1.4;color:var(--accent)}
+.term-content p{margin:0;color:var(--ink);overflow-wrap:anywhere}
+@media(min-width:760px){.term-card{padding:17px 20px}.term-content h4{font-size:1.08rem}}
+@media(max-width:480px){body{padding:8px}.term-card{grid-template-columns:30px minmax(0,1fr);gap:10px;padding:13px}.term-number{width:28px;height:28px;font-size:.82rem}}
+</style>
+</head>
+<body><main>
+<nav class="nav" aria-label="Page navigation">
+<a href="enviquiz.html">← Home / Quiz</a>
+<button type="button" class="theme-toggle" id="themeToggle" aria-pressed="false">🌙 Dark Mode</button>
+</nav>
+<p class="intro">ENVIRONMENTAL SCIENCE REVIEWER</p>
+<p class="intro">200 KEY TERMS • STUDENT-FRIENDLY EDITION</p>
+<p class="intro">How to use this reviewer</p>
+<p class="intro">Read each term and its definition. Pay attention to key words, scientific formulas, percentages, and acronyms.</p>
+<article class="term-card"><span class="term-number">1</span><div class="term-content"><h4>Environment</h4><p>Everything around us, including all living (biotic) and non-living (abiotic) components.</p></div></article>
+<article class="term-card"><span class="term-number">2</span><div class="term-content"><h4>Ecosystem</h4><p>A system where living organisms interact with one another and with their physical surroundings.</p></div></article>
+<article class="term-card"><span class="term-number">3</span><div class="term-content"><h4>Ecology</h4><p>The study of the relationships between living organisms and their environment.</p></div></article>
+<article class="term-card"><span class="term-number">4</span><div class="term-content"><h4>Ecologist</h4><p>A scientist who studies ecosystems and the interactions between organisms and their surroundings.</p></div></article>
+<article class="term-card"><span class="term-number">5</span><div class="term-content"><h4>Biotic Factors</h4><p>The living components of an ecosystem (e.g., plants, animals, fungi, bacteria, humans).</p></div></article>
+<article class="term-card"><span class="term-number">6</span><div class="term-content"><h4>Abiotic Factors</h4><p>The non-living physical and chemical elements in an ecosystem (e.g., sunlight, water, air, soil, temperature, rocks).</p></div></article>
+<article class="term-card"><span class="term-number">7</span><div class="term-content"><h4>Biosphere</h4><p>The global ecological system integrating all living beings and their relationships across land, water, and air.</p></div></article>
+<article class="term-card"><span class="term-number">8</span><div class="term-content"><h4>Biome</h4><p>A large naturally occurring community of flora and fauna occupying a major habitat.</p></div></article>
+<article class="term-card"><span class="term-number">9</span><div class="term-content"><h4>Habitat</h4><p>The natural home or dwelling place of an organism that provides food, water, and shelter.</p></div></article>
+<article class="term-card"><span class="term-number">10</span><div class="term-content"><h4>Species</h4><p>A group of organisms commonly considered similar and, in many cases, capable of producing fertile offspring; this is one common species concept.</p></div></article>
+<article class="term-card"><span class="term-number">11</span><div class="term-content"><h4>Population</h4><p>A group of organisms belonging to the same species living in a specific area at the same time.</p></div></article>
+<article class="term-card"><span class="term-number">12</span><div class="term-content"><h4>Community</h4><p>Different populations of organisms living and interacting together in a shared area.</p></div></article>
+<article class="term-card"><span class="term-number">13</span><div class="term-content"><h4>Biodiversity</h4><p>The variety of life on Earth across genetic, species, and ecosystem levels.</p></div></article>
+<article class="term-card"><span class="term-number">14</span><div class="term-content"><h4>30 by 30 Target</h4><p>A target under the Kunming-Montreal Global Biodiversity Framework aiming to conserve at least 30% of Earth&#x27;s terrestrial, inland water, coastal, and marine areas by 2030.</p></div></article>
+<article class="term-card"><span class="term-number">15</span><div class="term-content"><h4>Endangered Species</h4><p>A species of plant or animal at serious risk of extinction.</p></div></article>
+<article class="term-card"><span class="term-number">16</span><div class="term-content"><h4>Extinction</h4><p>The permanent disappearance of a species when no living member remains on Earth.</p></div></article>
+<article class="term-card"><span class="term-number">17</span><div class="term-content"><h4>Invasive Species</h4><p>A non-native organism that establishes and spreads in a new area and causes, or is likely to cause, harm to the environment, economy, or people.</p></div></article>
+<article class="term-card"><span class="term-number">18</span><div class="term-content"><h4>Poaching</h4><p>The illegal hunting, capturing, or killing of protected wild animals.</p></div></article>
+<article class="term-card"><span class="term-number">19</span><div class="term-content"><h4>Overfishing</h4><p>Catching fish at a rate faster than populations can naturally replenish.</p></div></article>
+<article class="term-card"><span class="term-number">20</span><div class="term-content"><h4>Producers (Autotrophs)</h4><p>Organisms that make their own food through processes like photosynthesis (e.g., plants, algae).</p></div></article>
+<article class="term-card"><span class="term-number">21</span><div class="term-content"><h4>Photosynthesis</h4><p>The chemical process where green plants use sunlight, carbon dioxide (CO₂), and water to create food and oxygen (O₂).</p></div></article>
+<article class="term-card"><span class="term-number">22</span><div class="term-content"><h4>Chlorophyll</h4><p>The green pigment in plant cells that absorbs light energy required for photosynthesis.</p></div></article>
+<article class="term-card"><span class="term-number">23</span><div class="term-content"><h4>Consumers (Heterotrophs)</h4><p>Organisms that obtain energy by consuming other living organisms.</p></div></article>
+<article class="term-card"><span class="term-number">24</span><div class="term-content"><h4>Primary Consumer</h4><p>An animal that feeds directly on producers (herbivore).</p></div></article>
+<article class="term-card"><span class="term-number">25</span><div class="term-content"><h4>Secondary Consumer</h4><p>An animal that eats primary consumers (carnivore or omnivore).</p></div></article>
+<article class="term-card"><span class="term-number">26</span><div class="term-content"><h4>Tertiary Consumer</h4><p>An organism that feeds on secondary consumers; it may be an apex predator, but not always.</p></div></article>
+<article class="term-card"><span class="term-number">27</span><div class="term-content"><h4>Herbivore</h4><p>An animal that mainly eats plants.</p></div></article>
+<article class="term-card"><span class="term-number">28</span><div class="term-content"><h4>Carnivore</h4><p>An animal that mainly eats other animals.</p></div></article>
+<article class="term-card"><span class="term-number">29</span><div class="term-content"><h4>Omnivore</h4><p>An animal that regularly consumes both plants and animals.</p></div></article>
+<article class="term-card"><span class="term-number">30</span><div class="term-content"><h4>Decomposer</h4><p>Organisms (e.g., bacteria, fungi) that break down dead plants, animals, and organic matter, returning nutrients to the soil.</p></div></article>
+<article class="term-card"><span class="term-number">31</span><div class="term-content"><h4>Detritivore</h4><p>An organism that physically consumes dead organic debris (detritus).</p></div></article>
+<article class="term-card"><span class="term-number">32</span><div class="term-content"><h4>Scavenger</h4><p>An animal that feeds on dead animal carcasses it did not kill itself.</p></div></article>
+<article class="term-card"><span class="term-number">33</span><div class="term-content"><h4>Food Chain</h4><p>A single linear sequence showing how energy passes from one organism to another.</p></div></article>
+<article class="term-card"><span class="term-number">34</span><div class="term-content"><h4>Food Web</h4><p>A complex network of interconnected and interdependent food chains in an ecosystem.</p></div></article>
+<article class="term-card"><span class="term-number">35</span><div class="term-content"><h4>Trophic Level</h4><p>Each hierarchical step or feeding level occupied by an organism in a food chain.</p></div></article>
+<article class="term-card"><span class="term-number">36</span><div class="term-content"><h4>Ten Percent Law</h4><p>The principle stating that only about 10% of energy is transferred to the next higher trophic level.</p></div></article>
+<article class="term-card"><span class="term-number">37</span><div class="term-content"><h4>Biomass</h4><p>The total mass of living organic matter within a given area or volume.</p></div></article>
+<article class="term-card"><span class="term-number">38</span><div class="term-content"><h4>Cellular Respiration</h4><p>The process by which cells break down food molecules to release usable energy (ATP); some forms require oxygen, while others do not.</p></div></article>
+<article class="term-card"><span class="term-number">39</span><div class="term-content"><h4>Symbiosis</h4><p>A close, long-term biological interaction between two different species.</p></div></article>
+<article class="term-card"><span class="term-number">40</span><div class="term-content"><h4>Mutualism</h4><p>A symbiotic relationship where both participating organisms benefit.</p></div></article>
+<article class="term-card"><span class="term-number">41</span><div class="term-content"><h4>Commensalism</h4><p>A symbiotic interaction where one organism benefits while the other is unaffected.</p></div></article>
+<article class="term-card"><span class="term-number">42</span><div class="term-content"><h4>Parasitism</h4><p>A symbiotic interaction where one organism (parasite) benefits at the expense of another (host).</p></div></article>
+<article class="term-card"><span class="term-number">43</span><div class="term-content"><h4>Predation</h4><p>An interaction where one organism (predator) hunts, kills, and feeds on another (prey).</p></div></article>
+<article class="term-card"><span class="term-number">44</span><div class="term-content"><h4>Competition</h4><p>The struggle between organisms for limited resources like food, water, light, and space.</p></div></article>
+<article class="term-card"><span class="term-number">45</span><div class="term-content"><h4>Camouflage</h4><p>An adaptation allowing an organism to blend into its environment to avoid detection.</p></div></article>
+<article class="term-card"><span class="term-number">46</span><div class="term-content"><h4>Mimicry</h4><p>An adaptation in which an organism resembles another organism or object; this resemblance may help it avoid predators or gain another advantage.</p></div></article>
+<article class="term-card"><span class="term-number">47</span><div class="term-content"><h4>Ecological Succession</h4><p>The gradual process by which ecosystem structure and species composition change over time.</p></div></article>
+<article class="term-card"><span class="term-number">48</span><div class="term-content"><h4>Primary Succession</h4><p>Ecological succession occurring on bare rock or land with no pre-existing soil.</p></div></article>
+<article class="term-card"><span class="term-number">49</span><div class="term-content"><h4>Secondary Succession</h4><p>Succession occurring in an area where a disturbance destroyed a community but left soil intact.</p></div></article>
+<article class="term-card"><span class="term-number">50</span><div class="term-content"><h4>Natural Resource</h4><p>Any material or substance obtained from nature that humans use.</p></div></article>
+<article class="term-card"><span class="term-number">51</span><div class="term-content"><h4>Renewable Resource</h4><p>A natural resource that is replenished by natural processes on a human timescale, although it may still be depleted locally if overused.</p></div></article>
+<article class="term-card"><span class="term-number">52</span><div class="term-content"><h4>Non-Renewable Resource</h4><p>A natural resource that is not replenished on a human timescale, or is used much faster than it can be replaced.</p></div></article>
+<article class="term-card"><span class="term-number">53</span><div class="term-content"><h4>Fossil Fuels</h4><p>Non-renewable energy sources formed from ancient organic matter, such as coal, petroleum (oil), and natural gas.</p></div></article>
+<article class="term-card"><span class="term-number">54</span><div class="term-content"><h4>Solar Energy</h4><p>Renewable energy obtained from sunlight using solar panels.</p></div></article>
+<article class="term-card"><span class="term-number">55</span><div class="term-content"><h4>Wind Energy</h4><p>Energy captured by using moving air currents to turn wind turbines.</p></div></article>
+<article class="term-card"><span class="term-number">56</span><div class="term-content"><h4>Hydroelectric Energy</h4><p>Renewable electricity generated from moving or falling water.</p></div></article>
+<article class="term-card"><span class="term-number">57</span><div class="term-content"><h4>Geothermal Energy</h4><p>Heat energy generated and trapped deep inside the Earth.</p></div></article>
+<article class="term-card"><span class="term-number">58</span><div class="term-content"><h4>Green Hydrogen</h4><p>Hydrogen produced by splitting water through electrolysis using renewable electricity.</p></div></article>
+<article class="term-card"><span class="term-number">59</span><div class="term-content"><h4>Soil</h4><p>The outermost layer of Earth&#x27;s crust composed of rock particles, mineral nutrients, organic matter, water, and air.</p></div></article>
+<article class="term-card"><span class="term-number">60</span><div class="term-content"><h4>Humus</h4><p>Dark, nutrient-rich organic matter created by the decay of plant and animal tissues in soil.</p></div></article>
+<article class="term-card"><span class="term-number">61</span><div class="term-content"><h4>Topsoil</h4><p>The fertile upper layer of soil containing high organic matter and essential plant nutrients.</p></div></article>
+<article class="term-card"><span class="term-number">62</span><div class="term-content"><h4>Bedrock</h4><p>The solid rock beneath soil or loose surface material; it may be exposed at Earth&#x27;s surface.</p></div></article>
+<article class="term-card"><span class="term-number">63</span><div class="term-content"><h4>Groundwater</h4><p>Water located beneath Earth&#x27;s surface stored in soil pores and rock formations.</p></div></article>
+<article class="term-card"><span class="term-number">64</span><div class="term-content"><h4>Aquifer</h4><p>An underground layer of permeable rock or sediment holding groundwater.</p></div></article>
+<article class="term-card"><span class="term-number">65</span><div class="term-content"><h4>Watershed</h4><p>An area of land where all precipitation drains into a common body of water.</p></div></article>
+<article class="term-card"><span class="term-number">66</span><div class="term-content"><h4>Soil Erosion</h4><p>The wearing away and displacement of topsoil or rock by agents like water, wind, ice, and gravity.</p></div></article>
+<article class="term-card"><span class="term-number">67</span><div class="term-content"><h4>Deforestation</h4><p>The clearance or removal of forest cover for non-forest land uses.</p></div></article>
+<article class="term-card"><span class="term-number">68</span><div class="term-content"><h4>Reforestation</h4><p>Restoring trees to land where forests were previously removed or degraded.</p></div></article>
+<article class="term-card"><span class="term-number">69</span><div class="term-content"><h4>Afforestation</h4><p>Establishing a forest on land that has not been recently forested; it should not replace naturally treeless ecosystems.</p></div></article>
+<article class="term-card"><span class="term-number">70</span><div class="term-content"><h4>Contour Plowing</h4><p>Plowing across sloping land along constant elevation lines to minimize water runoff and topsoil erosion.</p></div></article>
+<article class="term-card"><span class="term-number">71</span><div class="term-content"><h4>Terracing</h4><p>Cutting step-like flat areas into hillsides to reduce surface runoff and prevent erosion.</p></div></article>
+<article class="term-card"><span class="term-number">72</span><div class="term-content"><h4>Regenerative Agriculture</h4><p>An agricultural approach focused on improving soil health, water retention, and ecosystem function (e.g., cover crops, reduced tillage).</p></div></article>
+<article class="term-card"><span class="term-number">73</span><div class="term-content"><h4>Crop Rotation</h4><p>Growing different crops in succession on the same land to maintain soil fertility and break pest cycles.</p></div></article>
+<article class="term-card"><span class="term-number">74</span><div class="term-content"><h4>Composting</h4><p>The controlled decomposition of organic waste into compost, which can add organic matter and improve soil.</p></div></article>
+<article class="term-card"><span class="term-number">75</span><div class="term-content"><h4>Water Cycle</h4><p>The continuous movement of water through Earth&#x27;s surface, underground, and atmosphere.</p></div></article>
+<article class="term-card"><span class="term-number">76</span><div class="term-content"><h4>Evaporation</h4><p>The change of liquid water into water vapor, usually after absorbing heat.</p></div></article>
+<article class="term-card"><span class="term-number">77</span><div class="term-content"><h4>Transpiration</h4><p>The process where water moves through plants and evaporates into the air through leaves.</p></div></article>
+<article class="term-card"><span class="term-number">78</span><div class="term-content"><h4>Condensation</h4><p>The cooling of water vapor in the air changing back into liquid droplets to form clouds.</p></div></article>
+<article class="term-card"><span class="term-number">79</span><div class="term-content"><h4>Precipitation</h4><p>Water falling from clouds to Earth in liquid or frozen forms (e.g., rain, snow, hail).</p></div></article>
+<article class="term-card"><span class="term-number">80</span><div class="term-content"><h4>Collection</h4><p>Water gathers in rivers, lakes, oceans, and underground aquifers as part of the water cycle.</p></div></article>
+<article class="term-card"><span class="term-number">81</span><div class="term-content"><h4>Water Conservation</h4><p>Practicing wise and minimal use of water resources to prevent waste.</p></div></article>
+<article class="term-card"><span class="term-number">82</span><div class="term-content"><h4>Atmosphere</h4><p>The protective envelope of gases surrounding Earth.</p></div></article>
+<article class="term-card"><span class="term-number">83</span><div class="term-content"><h4>Troposphere</h4><p>The lowest layer of Earth&#x27;s atmosphere where weather occurs and humans live.</p></div></article>
+<article class="term-card"><span class="term-number">84</span><div class="term-content"><h4>Stratosphere</h4><p>The atmospheric layer above the troposphere that houses the protective ozone layer.</p></div></article>
+<article class="term-card"><span class="term-number">85</span><div class="term-content"><h4>Ozone Layer</h4><p>A region in the stratosphere that absorbs and filters out harmful solar ultraviolet (UV) radiation.</p></div></article>
+<article class="term-card"><span class="term-number">86</span><div class="term-content"><h4>Weather</h4><p>The short-term state of atmospheric conditions at a specific time and place.</p></div></article>
+<article class="term-card"><span class="term-number">87</span><div class="term-content"><h4>Climate</h4><p>The long-term patterns and average atmospheric conditions in a region over an extended period.</p></div></article>
+<article class="term-card"><span class="term-number">88</span><div class="term-content"><h4>Barometer</h4><p>An instrument used to measure atmospheric pressure.</p></div></article>
+<article class="term-card"><span class="term-number">89</span><div class="term-content"><h4>Anemometer</h4><p>An instrument used to measure wind speed.</p></div></article>
+<article class="term-card"><span class="term-number">90</span><div class="term-content"><h4>Hygrometer</h4><p>An instrument used to measure relative atmospheric humidity.</p></div></article>
+<article class="term-card"><span class="term-number">91</span><div class="term-content"><h4>Wind Vane</h4><p>A tool used to determine wind direction.</p></div></article>
+<article class="term-card"><span class="term-number">92</span><div class="term-content"><h4>Thermometer</h4><p>An instrument used to measure temperature.</p></div></article>
+<article class="term-card"><span class="term-number">93</span><div class="term-content"><h4>Rain Gauge</h4><p>An instrument used to collect and measure liquid precipitation over time.</p></div></article>
+<article class="term-card"><span class="term-number">94</span><div class="term-content"><h4>Cirrus Clouds</h4><p>High, thin, feathery clouds composed mainly of ice crystals.</p></div></article>
+<article class="term-card"><span class="term-number">95</span><div class="term-content"><h4>Cumulus Clouds</h4><p>Puffy clouds with fairly flat bases that often occur in fair weather but can grow into storm clouds.</p></div></article>
+<article class="term-card"><span class="term-number">96</span><div class="term-content"><h4>Stratus Clouds</h4><p>Low, flat, grey cloud sheets covering the sky like a uniform blanket.</p></div></article>
+<article class="term-card"><span class="term-number">97</span><div class="term-content"><h4>Cumulonimbus Clouds</h4><p>Towering clouds associated with thunderstorms, heavy rain, and severe weather.</p></div></article>
+<article class="term-card"><span class="term-number">98</span><div class="term-content"><h4>Typhoon</h4><p>A tropical cyclone in the western North Pacific with sustained winds that meet the typhoon-strength threshold.</p></div></article>
+<article class="term-card"><span class="term-number">99</span><div class="term-content"><h4>Eye of a Typhoon</h4><p>The calm, low-pressure central area of a tropical cyclone.</p></div></article>
+<article class="term-card"><span class="term-number">100</span><div class="term-content"><h4>Eyewall</h4><p>The ring of intense thunderstorms surrounding a tropical cyclone&#x27;s eye, where the strongest winds are often found.</p></div></article>
+<article class="term-card"><span class="term-number">101</span><div class="term-content"><h4>Storm Surge</h4><p>An abnormal rise of coastal water generated by a severe storm&#x27;s winds and low pressure.</p></div></article>
+<article class="term-card"><span class="term-number">102</span><div class="term-content"><h4>Monsoon</h4><p>A seasonal wind pattern bringing dramatic precipitation shifts (Habagat and Amihan).</p></div></article>
+<article class="term-card"><span class="term-number">103</span><div class="term-content"><h4>El Niño</h4><p>A climate pattern involving unusual warming in the tropical Pacific that can reduce rainfall and increase drought risk in parts of the Philippines; impacts vary by place and event.</p></div></article>
+<article class="term-card"><span class="term-number">104</span><div class="term-content"><h4>Pollution</h4><p>The contamination of the environment by harmful chemical, physical, or biological agents.</p></div></article>
+<article class="term-card"><span class="term-number">105</span><div class="term-content"><h4>Pollutant</h4><p>Any substance or form of energy that causes environmental contamination or ecological harm.</p></div></article>
+<article class="term-card"><span class="term-number">106</span><div class="term-content"><h4>Air Pollution</h4><p>Contamination of the atmosphere by vehicle exhaust, factory emissions, and fossil fuel burning.</p></div></article>
+<article class="term-card"><span class="term-number">107</span><div class="term-content"><h4>Water Pollution</h4><p>Contamination of water bodies by sewage, oil spills, toxic chemicals, and agricultural runoff.</p></div></article>
+<article class="term-card"><span class="term-number">108</span><div class="term-content"><h4>Soil Pollution</h4><p>Land degradation caused by improper waste disposal, industrial spills, and chemical pesticides.</p></div></article>
+<article class="term-card"><span class="term-number">109</span><div class="term-content"><h4>Noise Pollution</h4><p>Harmful, unwanted, or excessive sound from traffic, machinery, or construction.</p></div></article>
+<article class="term-card"><span class="term-number">110</span><div class="term-content"><h4>Light Pollution</h4><p>Excessive, misdirected artificial light at night that disrupts wildlife and hides stars.</p></div></article>
+<article class="term-card"><span class="term-number">111</span><div class="term-content"><h4>Point Source Pollution</h4><p>Contamination originating from a single identifiable, localized source (e.g., factory pipe).</p></div></article>
+<article class="term-card"><span class="term-number">112</span><div class="term-content"><h4>Non-Point Source Pollution</h4><p>Pollutants entering water bodies from widespread, diffuse land areas (e.g., agricultural runoff).</p></div></article>
+<article class="term-card"><span class="term-number">113</span><div class="term-content"><h4>Smog</h4><p>Air pollution involving a mixture of pollutants; some types include ground-level ozone formed when pollutants react in sunlight.</p></div></article>
+<article class="term-card"><span class="term-number">114</span><div class="term-content"><h4>Acid Rain</h4><p>Rainfall made abnormally acidic by atmospheric reactions with sulfur dioxide (SO₂) and nitrogen oxides (NO_x) from fossil fuel burning.</p></div></article>
+<article class="term-card"><span class="term-number">115</span><div class="term-content"><h4>Eutrophication</h4><p>Excess nutrients entering a water body can promote excessive algal growth and, in some conditions, reduce dissolved oxygen.</p></div></article>
+<article class="term-card"><span class="term-number">116</span><div class="term-content"><h4>Algal Bloom</h4><p>A rapid increase or accumulation of microscopic algae populations in aquatic ecosystems.</p></div></article>
+<article class="term-card"><span class="term-number">117</span><div class="term-content"><h4>Red Tide</h4><p>A common term for certain harmful algal blooms; the water may change color, but not all harmful blooms are red or caused by the same organisms.</p></div></article>
+<article class="term-card"><span class="term-number">118</span><div class="term-content"><h4>Thermal Pollution</h4><p>A human-caused change in water temperature, often from warm-water discharges, that can harm aquatic life and affect dissolved oxygen.</p></div></article>
+<article class="term-card"><span class="term-number">119</span><div class="term-content"><h4>Plastic Pollution</h4><p>Accumulation of non-biodegradable synthetic plastic items in land and marine environments.</p></div></article>
+<article class="term-card"><span class="term-number">120</span><div class="term-content"><h4>Microplastics</h4><p>Synthetic plastic particles smaller than 5 millimeters found widespread in oceans, air, and soil.</p></div></article>
+<article class="term-card"><span class="term-number">121</span><div class="term-content"><h4>Bioaccumulation</h4><p>The gradual accumulation of toxic chemicals inside a single organism over its lifetime.</p></div></article>
+<article class="term-card"><span class="term-number">122</span><div class="term-content"><h4>Biomagnification</h4><p>The increasing concentration of persistent toxins in organisms at higher trophic levels in a food chain.</p></div></article>
+<article class="term-card"><span class="term-number">123</span><div class="term-content"><h4>3 Rs of Waste Management</h4><p>Reduce, Reuse, Recycle—the familiar framework for minimizing waste.</p></div></article>
+<article class="term-card"><span class="term-number">124</span><div class="term-content"><h4>Reduce</h4><p>Decreasing the volume of resources used and waste produced at the source.</p></div></article>
+<article class="term-card"><span class="term-number">125</span><div class="term-content"><h4>Reuse</h4><p>Using an item multiple times before considering discarding it.</p></div></article>
+<article class="term-card"><span class="term-number">126</span><div class="term-content"><h4>Recycle</h4><p>Processing used waste materials to manufacture new products.</p></div></article>
+<article class="term-card"><span class="term-number">127</span><div class="term-content"><h4>Circular Economy</h4><p>An economic system that keeps products and materials in use through approaches such as Reduce → Reuse → Repair → Refurbish → Recycle.</p></div></article>
+<article class="term-card"><span class="term-number">128</span><div class="term-content"><h4>Linear Economy</h4><p>A resource-use pattern often described as take → make → use → throw away.</p></div></article>
+<article class="term-card"><span class="term-number">129</span><div class="term-content"><h4>Solid Waste</h4><p>Discarded solid or semi-solid materials from homes, businesses, institutions, and other activities.</p></div></article>
+<article class="term-card"><span class="term-number">130</span><div class="term-content"><h4>Biodegradable Waste</h4><p>Waste materials naturally decomposable by microorganisms (e.g., food scraps, leaves).</p></div></article>
+<article class="term-card"><span class="term-number">131</span><div class="term-content"><h4>Non-Biodegradable Waste</h4><p>Waste materials resistant to natural biological decomposition (e.g., plastics, metals).</p></div></article>
+<article class="term-card"><span class="term-number">132</span><div class="term-content"><h4>Hazardous Waste</h4><p>Toxic, reactive, or dangerous waste materials posing health and environmental threats.</p></div></article>
+<article class="term-card"><span class="term-number">133</span><div class="term-content"><h4>Electronic Waste (E-waste)</h4><p>Discarded electrical or electronic equipment (e.g., broken phones, computers) containing hazardous substances and valuable metals.</p></div></article>
+<article class="term-card"><span class="term-number">134</span><div class="term-content"><h4>Landfill</h4><p>A site engineered for disposing of solid waste by compaction and burial under soil layers.</p></div></article>
+<article class="term-card"><span class="term-number">135</span><div class="term-content"><h4>Sanitary Landfill</h4><p>A modern landfill lined with synthetic barriers and leachate collection systems to protect surrounding groundwater.</p></div></article>
+<article class="term-card"><span class="term-number">136</span><div class="term-content"><h4>Leachate</h4><p>Liquid that passes through waste and picks up dissolved or suspended substances; its composition and risk depend on the waste.</p></div></article>
+<article class="term-card"><span class="term-number">137</span><div class="term-content"><h4>Incineration</h4><p>High-temperature controlled combustion of solid waste materials.</p></div></article>
+<article class="term-card"><span class="term-number">138</span><div class="term-content"><h4>Zero Waste</h4><p>A sustainability goal focused on waste prevention and closed-loop resource recovery.</p></div></article>
+<article class="term-card"><span class="term-number">139</span><div class="term-content"><h4>Sustainability</h4><p>Meeting present human needs without compromising the ability of future generations to meet theirs.</p></div></article>
+<article class="term-card"><span class="term-number">140</span><div class="term-content"><h4>Conservation</h4><p>Protecting, preserving, and wisely managing natural resources and ecosystems for the future.</p></div></article>
+<article class="term-card"><span class="term-number">141</span><div class="term-content"><h4>Preservation</h4><p>Protecting natural areas and their features from harmful alteration or development.</p></div></article>
+<article class="term-card"><span class="term-number">142</span><div class="term-content"><h4>Carbon Footprint</h4><p>The total greenhouse gas emissions associated with an individual, product, organization, or event.</p></div></article>
+<article class="term-card"><span class="term-number">143</span><div class="term-content"><h4>Climate Change</h4><p>Long-term changes in Earth&#x27;s atmospheric temperature, weather patterns, and sea levels.</p></div></article>
+<article class="term-card"><span class="term-number">144</span><div class="term-content"><h4>Global Warming</h4><p>The long-term rise in Earth&#x27;s average surface temperature primarily driven by human greenhouse gas emissions.</p></div></article>
+<article class="term-card"><span class="term-number">145</span><div class="term-content"><h4>Greenhouse Effect</h4><p>A natural process in which greenhouse gases absorb and re-emit outgoing infrared radiation, helping warm Earth&#x27;s surface and lower atmosphere.</p></div></article>
+<article class="term-card"><span class="term-number">146</span><div class="term-content"><h4>Greenhouse Gases (GHGs)</h4><p>Heat-trapping gases in the atmosphere, including carbon dioxide (CO₂), methane (CH₄), nitrous oxide (N₂O), and water vapor.</p></div></article>
+<article class="term-card"><span class="term-number">147</span><div class="term-content"><h4>Chlorofluorocarbons (CFCs)</h4><p>Synthetic industrial chemicals that destroy stratospheric ozone molecules.</p></div></article>
+<article class="term-card"><span class="term-number">148</span><div class="term-content"><h4>Climate Mitigation</h4><p>Actions aimed at reducing greenhouse gas emissions or increasing carbon removal from the atmosphere (e.g., renewable energy, reforestation).</p></div></article>
+<article class="term-card"><span class="term-number">149</span><div class="term-content"><h4>Climate Adaptation</h4><p>Adjustments made to reduce human and natural vulnerability to actual or expected climate impacts (e.g., flood barriers, drought-resistant crops).</p></div></article>
+<article class="term-card"><span class="term-number">150</span><div class="term-content"><h4>Net Zero</h4><p>A state, within a defined scope and period, in which greenhouse gas emissions are balanced by greenhouse gas removals.</p></div></article>
+<article class="term-card"><span class="term-number">151</span><div class="term-content"><h4>Carbon Capture and Storage (CCS)</h4><p>Technology that captures carbon dioxide (CO₂), often from industrial sources, and stores it in suitable geological formations.</p></div></article>
+<article class="term-card"><span class="term-number">152</span><div class="term-content"><h4>Electric Vehicles (EVs)</h4><p>Vehicles powered by electric motors and batteries; battery-electric vehicles have no tailpipe emissions while driving, but emissions may occur during electricity generation and manufacturing.</p></div></article>
+<article class="term-card"><span class="term-number">153</span><div class="term-content"><h4>Heat Pump</h4><p>Highly efficient technology that transfers heat into or out of buildings rather than creating heat through direct combustion.</p></div></article>
+<article class="term-card"><span class="term-number">154</span><div class="term-content"><h4>Earth-Observation Satellites</h4><p>Remote-sensing space technology used to monitor deforestation, wildfires, flooding, and ocean conditions across Earth.</p></div></article>
+<article class="term-card"><span class="term-number">155</span><div class="term-content"><h4>Nature-Based Solutions</h4><p>Strategies that protect, restore, or sustainably manage ecosystems to solve environmental and societal challenges (e.g., urban green spaces, wetland restoration).</p></div></article>
+<article class="term-card"><span class="term-number">156</span><div class="term-content"><h4>Mangroves</h4><p>Salt-tolerant coastal trees and shrubs that reduce shoreline erosion, trap sediment, provide fish nurseries, and store large amounts of carbon.</p></div></article>
+<article class="term-card"><span class="term-number">157</span><div class="term-content"><h4>Mangrove Restoration</h4><p>Re-establishing degraded mangrove forest ecosystems along coastal regions.</p></div></article>
+<article class="term-card"><span class="term-number">158</span><div class="term-content"><h4>Wetlands</h4><p>Areas where water covers or saturates soil permanently or seasonally (e.g., marshes, swamps, mangroves).</p></div></article>
+<article class="term-card"><span class="term-number">159</span><div class="term-content"><h4>Coral Bleaching</h4><p>The phenomenon where heat-stressed corals expel their microscopic symbiotic algae, turning white and risking death.</p></div></article>
+<article class="term-card"><span class="term-number">160</span><div class="term-content"><h4>Urban Heat Island</h4><p>Built-up urban areas becoming significantly warmer than surrounding rural areas due to concrete, asphalt, and sparse vegetation.</p></div></article>
+<article class="term-card"><span class="term-number">161</span><div class="term-content"><h4>Sea Level Rise</h4><p>An increase in average sea level caused in part by warming seawater expanding and by melting land-based glaciers and ice sheets.</p></div></article>
+<article class="term-card"><span class="term-number">162</span><div class="term-content"><h4>Ocean Acidification</h4><p>The ongoing decrease in ocean pH caused by oceans absorbing human-emitted carbon dioxide.</p></div></article>
+<article class="term-card"><span class="term-number">163</span><div class="term-content"><h4>Habitat Fragmentation</h4><p>Division of large continuous natural habitats into smaller, isolated patches due to human infrastructure.</p></div></article>
+<article class="term-card"><span class="term-number">164</span><div class="term-content"><h4>Carbon Sequestration</h4><p>Capturing and storing atmospheric carbon dioxide in natural sinks like forests, soils, and oceans.</p></div></article>
+<article class="term-card"><span class="term-number">165</span><div class="term-content"><h4>Climate Resilience</h4><p>The capability of natural or human systems to withstand, adapt to, and recover from climate disturbances.</p></div></article>
+<article class="term-card"><span class="term-number">166</span><div class="term-content"><h4>Philippine Clean Air Act of 1999 (RA 8749)</h4><p>Philippine law establishing a national air quality management program.</p></div></article>
+<article class="term-card"><span class="term-number">167</span><div class="term-content"><h4>Ecological Solid Waste Management Act of 2000 (RA 9003)</h4><p>Philippine law providing a systematic solid waste and recycling framework.</p></div></article>
+<article class="term-card"><span class="term-number">168</span><div class="term-content"><h4>Philippine Clean Water Act of 2004 (RA 9275)</h4><p>Philippine law protecting rivers, lakes, and coastal water bodies from land-based pollution.</p></div></article>
+<article class="term-card"><span class="term-number">169</span><div class="term-content"><h4>Wildlife Resources Conservation and Protection Act (RA 9147)</h4><p>Philippine law protecting wild flora, fauna, and their natural habitats.</p></div></article>
+<article class="term-card"><span class="term-number">170</span><div class="term-content"><h4>National Integrated Protected Areas System (NIPAS) Act (RA 7586)</h4><p>Philippine law establishing the NIPAS framework for protected areas; it was later amended by RA 11038.</p></div></article>
+<article class="term-card"><span class="term-number">171</span><div class="term-content"><h4>Protected Area</h4><p>A legally designated geographic space managed to achieve long-term nature conservation.</p></div></article>
+<article class="term-card"><span class="term-number">172</span><div class="term-content"><h4>Department of Environment and Natural Resources (DENR)</h4><p>Philippine government agency responsible for environmental and natural-resource matters.</p></div></article>
+<article class="term-card"><span class="term-number">173</span><div class="term-content"><h4>Bureau of Fisheries and Aquatic Resources (BFAR)</h4><p>Philippine agency responsible for fisheries and aquatic resources.</p></div></article>
+<article class="term-card"><span class="term-number">174</span><div class="term-content"><h4>Philippine Atmospheric, Geophysical and Astronomical Services Administration (PAGASA)</h4><p>Philippine state agency responsible for weather and climate services.</p></div></article>
+<article class="term-card"><span class="term-number">175</span><div class="term-content"><h4>Philippine Institute of Volcanology and Seismology (PHIVOLCS)</h4><p>Philippine agency monitoring volcanoes, earthquakes, and related hazards.</p></div></article>
+<article class="term-card"><span class="term-number">176</span><div class="term-content"><h4>Organic Farming</h4><p>A farming approach that follows organic standards and emphasizes ecological practices; rules for permitted inputs and genetically modified organisms depend on the applicable standard.</p></div></article>
+<article class="term-card"><span class="term-number">177</span><div class="term-content"><h4>Rainwater Harvesting</h4><p>Collecting and storing rainwater for later use.</p></div></article>
+<article class="term-card"><span class="term-number">178</span><div class="term-content"><h4>Integrated Pest Management (IPM)</h4><p>An approach that monitors and prevents pest problems and combines suitable control methods—such as biological, cultural, physical, and, when needed, chemical controls—while minimizing risks.</p></div></article>
+<article class="term-card"><span class="term-number">179</span><div class="term-content"><h4>Ecological Footprint</h4><p>A measure comparing human demand on nature with nature&#x27;s capacity to regenerate resources and absorb wastes.</p></div></article>
+<article class="term-card"><span class="term-number">180</span><div class="term-content"><h4>Carrying Capacity</h4><p>The maximum population size of a species an ecosystem can sustain indefinitely.</p></div></article>
+<article class="term-card"><span class="term-number">181</span><div class="term-content"><h4>Single-Use Plastics</h4><p>Plastic products designed to be thrown away after one brief use (e.g., sachets, straws, plastic bags).</p></div></article>
+<article class="term-card"><span class="term-number">182</span><div class="term-content"><h4>Protected Species</h4><p>Organisms legally protected from hunting, logging, capture, or trade by conservation laws.</p></div></article>
+<article class="term-card"><span class="term-number">183</span><div class="term-content"><h4>Conservation Biology</h4><p>The scientific study focused on protecting biodiversity and preventing species extinction.</p></div></article>
+<article class="term-card"><span class="term-number">184</span><div class="term-content"><h4>Environmental Impact Assessment (EIA)</h4><p>A process for identifying and evaluating the potential environmental impacts of a proposed project to inform planning and decision-making.</p></div></article>
+<article class="term-card"><span class="term-number">185</span><div class="term-content"><h4>Sustainable Development</h4><p>Progress that satisfies current needs without compromising future generations.</p></div></article>
+<article class="term-card"><span class="term-number">186</span><div class="term-content"><h4>Estuary</h4><p>A coastal zone where freshwater from rivers mixes with saltwater from the ocean.</p></div></article>
+<article class="term-card"><span class="term-number">187</span><div class="term-content"><h4>Intertidal Zone</h4><p>Seashore area exposed to air at low tide and underwater at high tide.</p></div></article>
+<article class="term-card"><span class="term-number">188</span><div class="term-content"><h4>Ecotone</h4><p>A transition boundary zone between two distinct biomes or ecosystems.</p></div></article>
+<article class="term-card"><span class="term-number">189</span><div class="term-content"><h4>Autotroph</h4><p>An organism that synthesizes its own food from inorganic materials.</p></div></article>
+<article class="term-card"><span class="term-number">190</span><div class="term-content"><h4>Heterotroph</h4><p>An organism that obtains nutrition by consuming other living things.</p></div></article>
+<article class="term-card"><span class="term-number">191</span><div class="term-content"><h4>Intraspecific Competition</h4><p>Resource competition occurring between members of the same species.</p></div></article>
+<article class="term-card"><span class="term-number">192</span><div class="term-content"><h4>Interspecific Competition</h4><p>Resource competition occurring between members of different species.</p></div></article>
+<article class="term-card"><span class="term-number">193</span><div class="term-content"><h4>Biogeochemical Cycle</h4><p>Pathways by which essential chemical elements circulate through Earth&#x27;s living and non-living systems.</p></div></article>
+<article class="term-card"><span class="term-number">194</span><div class="term-content"><h4>Nitrogen Fixation</h4><p>The conversion of atmospheric nitrogen gas (N₂) into biologically usable compounds, mainly by certain bacteria and archaea. Lightning can also convert nitrogen into compounds, but this is not biological nitrogen fixation.</p></div></article>
+<article class="term-card"><span class="term-number">195</span><div class="term-content"><h4>Denitrification</h4><p>Conversion of soil nitrates back into atmospheric nitrogen gas by soil bacteria.</p></div></article>
+<article class="term-card"><span class="term-number">196</span><div class="term-content"><h4>Lithosphere</h4><p>The solid, rigid outer crust and upper mantle of Earth.</p></div></article>
+<article class="term-card"><span class="term-number">197</span><div class="term-content"><h4>Hydrosphere</h4><p>All liquid, frozen, and gaseous water found across Earth.</p></div></article>
+<article class="term-card"><span class="term-number">198</span><div class="term-content"><h4>Siltation</h4><p>Water pollution where fine terrestrial soil particles settle onto aquatic beds, suffocating life.</p></div></article>
+<article class="term-card"><span class="term-number">199</span><div class="term-content"><h4>Kaingin System</h4><p>Slash-and-burn farming in the Philippines where forests are cleared and burned for farming, accelerating soil erosion.</p></div></article>
+<article class="term-card"><span class="term-number">200</span><div class="term-content"><h4>Tamaraw</h4><p>A critically endangered small dwarf buffalo endemic to the island of Mindoro, Philippines.</p></div></article>
+<h2>Additional Advanced Environmental Science Terms (201–250)</h2>
+<h3>Part 1: Advanced Ecology &amp; Population Dynamics</h3>
+<article class="term-card"><span class="term-number">201</span><div class="term-content"><h4>Autecology</h4><p>The branch of ecology studying the interactions of an individual organism or a single species with its environment.</p></div></article>
+<article class="term-card"><span class="term-number">202</span><div class="term-content"><h4>Synecology</h4><p>The branch of ecology studying the structure and interactions of communities of multiple species in a shared area.</p></div></article>
+<article class="term-card"><span class="term-number">203</span><div class="term-content"><h4>Limiting Factor</h4><p>Any environmental condition (biotic or abiotic) that restricts the growth, abundance, or distribution of a population (e.g., nitrogen, sunlight).</p></div></article>
+<article class="term-card"><span class="term-number">204</span><div class="term-content"><h4>Biotic Potential</h4><p>The maximum reproductive capacity of a population under ideal environmental conditions with unlimited resources.</p></div></article>
+<article class="term-card"><span class="term-number">205</span><div class="term-content"><h4>Environmental Resistance</h4><p>The sum of all environmental factors (such as predators, drought, and disease) that prevent a population from reaching its biotic potential.</p></div></article>
+<article class="term-card"><span class="term-number">206</span><div class="term-content"><h4>Liebig’s Law of the Minimum</h4><p>The principle stating that growth is controlled not by total resources available, but by the scarcest resource (the limiting factor).</p></div></article>
+<article class="term-card"><span class="term-number">207</span><div class="term-content"><h4>Shelford’s Law of Tolerance</h4><p>The principle stating that an organism&#x27;s survival depends on a range of conditions, having a specific minimum, maximum, and optimum range of tolerance for environmental factors.</p></div></article>
+<article class="term-card"><span class="term-number">208</span><div class="term-content"><h4>Carrying Capacity (K)</h4><p>The maximum population size of a species that an ecosystem can sustain indefinitely given available resources.</p></div></article>
+<article class="term-card"><span class="term-number">209</span><div class="term-content"><h4>K-Selected Species</h4><p>Species that invest heavily in a small number of offspring, exhibiting high parental care and long lifespans (e.g., elephants, humans).</p></div></article>
+<article class="term-card"><span class="term-number">210</span><div class="term-content"><h4>r-Selected Species</h4><p>Species that produce large numbers of offspring quickly with minimal parental investment and high offspring mortality (e.g., mosquitoes, frogs).</p></div></article>
+<article class="term-card"><span class="term-number">211</span><div class="term-content"><h4>Ecotone</h4><p>A transition boundary zone between two distinct ecological communities or biomes; it may contain high species richness due to the edge effect.</p></div></article>
+<article class="term-card"><span class="term-number">212</span><div class="term-content"><h4>Keystone Species</h4><p>A species that has a disproportionately large effect on its natural environment relative to its abundance (e.g., sea otters, sea stars).</p></div></article>
+<article class="term-card"><span class="term-number">213</span><div class="term-content"><h4>Bioindicator</h4><p>An organism or biological response used to assess the health and environmental quality of an ecosystem (e.g., lichens for air quality).</p></div></article>
+<article class="term-card"><span class="term-number">214</span><div class="term-content"><h4>Phytoplankton</h4><p>Microscopic photosynthetic organisms floating in aquatic environments that form the base of many aquatic food webs.</p></div></article>
+<article class="term-card"><span class="term-number">215</span><div class="term-content"><h4>Zooplankton</h4><p>Small, drifting or weakly swimming animals and larvae in aquatic ecosystems that consume phytoplankton or other particles.</p></div></article>
+<h3>Part 2: Aquatic Zones &amp; Marine Chemistry</h3>
+<article class="term-card"><span class="term-number">216</span><div class="term-content"><h4>Photic Zone (Euphotic Zone)</h4><p>The illuminated upper layer of a body of water where sufficient sunlight penetrates for photosynthesis to occur.</p></div></article>
+<article class="term-card"><span class="term-number">217</span><div class="term-content"><h4>Aphotic Zone</h4><p>The deep water layer where sunlight is insufficient for photosynthesis.</p></div></article>
+<article class="term-card"><span class="term-number">218</span><div class="term-content"><h4>Benthic Zone</h4><p>The ecological zone at the bottom of a body of water, including the sediment and subsurface layers.</p></div></article>
+<article class="term-card"><span class="term-number">219</span><div class="term-content"><h4>Pelagic Zone</h4><p>The open-water column of an ocean or lake, away from the bottom and shore.</p></div></article>
+<article class="term-card"><span class="term-number">220</span><div class="term-content"><h4>Biochemical Oxygen Demand (BOD)</h4><p>The amount of dissolved oxygen needed by aerobic microorganisms to break down organic matter in a water sample.</p></div></article>
+<article class="term-card"><span class="term-number">221</span><div class="term-content"><h4>Dissolved Oxygen (DO)</h4><p>The concentration of molecular oxygen dissolved in water, vital for fish and other aquatic organisms.</p></div></article>
+<article class="term-card"><span class="term-number">222</span><div class="term-content"><h4>Thermal Stratification</h4><p>The division of a lake or water body into distinct temperature layers, often including a warm upper epilimnion and a colder lower hypolimnion.</p></div></article>
+<article class="term-card"><span class="term-number">223</span><div class="term-content"><h4>Halocline</h4><p>A layer in a body of water where salinity changes rapidly with depth.</p></div></article>
+<article class="term-card"><span class="term-number">224</span><div class="term-content"><h4>Pycnocline</h4><p>A layer in an ocean or lake where water density increases rapidly with depth.</p></div></article>
+<article class="term-card"><span class="term-number">225</span><div class="term-content"><h4>Thermocline</h4><p>A layer in a large body of water where temperature changes more rapidly with depth than in the layers above or below.</p></div></article>
+<h3>Part 3: Atmospheric Science, Physics &amp; Climate</h3>
+<article class="term-card"><span class="term-number">226</span><div class="term-content"><h4>Particulate Matter (PM₂.₅ and PM₁₀)</h4><p>Fine suspended solid particles or liquid droplets in the air that can pose health risks when inhaled.</p></div></article>
+<article class="term-card"><span class="term-number">227</span><div class="term-content"><h4>pH Scale</h4><p>A logarithmic scale related to hydrogen-ion activity, commonly used to describe how acidic or basic a water or soil sample is.</p></div></article>
+<article class="term-card"><span class="term-number">228</span><div class="term-content"><h4>Coriolis Effect</h4><p>The apparent deflection of moving air and water caused by Earth&#x27;s rotation; moving objects are deflected to the right in the Northern Hemisphere.</p></div></article>
+<article class="term-card"><span class="term-number">229</span><div class="term-content"><h4>Intertropical Convergence Zone (ITCZ)</h4><p>A low-pressure belt near the equator where trade winds converge, often producing clouds and heavy rainfall; its position influences rainfall in the Philippines.</p></div></article>
+<article class="term-card"><span class="term-number">230</span><div class="term-content"><h4>Albedo Effect</h4><p>The fraction of incoming solar energy reflected by a surface; light ice and snow generally have high albedo, while dark ocean water has low albedo.</p></div></article>
+<article class="term-card"><span class="term-number">231</span><div class="term-content"><h4>Rain Shadow Effect</h4><p>A relatively dry region on the leeward side of a mountain range, where descending air is often drier after moisture has been lost on the windward side.</p></div></article>
+<article class="term-card"><span class="term-number">232</span><div class="term-content"><h4>Orographic Precipitation</h4><p>Precipitation produced when moist air is forced to rise over elevated landforms such as mountains.</p></div></article>
+<article class="term-card"><span class="term-number">233</span><div class="term-content"><h4>Aerosols</h4><p>Tiny liquid or solid particles suspended in the atmosphere that can scatter or absorb sunlight and influence climate.</p></div></article>
+<article class="term-card"><span class="term-number">234</span><div class="term-content"><h4>Adiabatic Cooling</h4><p>Cooling that occurs when an air mass expands as pressure decreases, without exchanging heat with its surroundings.</p></div></article>
+<article class="term-card"><span class="term-number">235</span><div class="term-content"><h4>Temperature Inversion</h4><p>A condition in which temperature increases with height through a layer, which can limit vertical mixing and allow pollution to accumulate near the ground.</p></div></article>
+<article class="term-card"><span class="term-number">236</span><div class="term-content"><h4>Urban Canopy Layer</h4><p>The atmospheric layer extending from the ground to approximately the average roof height of buildings in an urban area.</p></div></article>
+<article class="term-card"><span class="term-number">237</span><div class="term-content"><h4>Lapse Rate</h4><p>The rate at which atmospheric temperature changes with altitude; in the troposphere, temperature generally decreases with height.</p></div></article>
+<article class="term-card"><span class="term-number">238</span><div class="term-content"><h4>Radiative Forcing</h4><p>A change in the balance between incoming energy from the Sun and outgoing energy from Earth, often expressed as a change in energy flux.</p></div></article>
+<h3>Part 4: Environmental Chemistry &amp; Cycles</h3>
+<article class="term-card"><span class="term-number">239</span><div class="term-content"><h4>Anthropogenic</h4><p>Originating from human activity; often used to describe environmental impacts, pollutants, or climate influences.</p></div></article>
+<article class="term-card"><span class="term-number">240</span><div class="term-content"><h4>Xenobiotic</h4><p>A chemical foreign to an organism or biological system, such as a synthetic pesticide.</p></div></article>
+<article class="term-card"><span class="term-number">241</span><div class="term-content"><h4>Persistent Organic Pollutants (POPs)</h4><p>Organic compounds that resist environmental degradation and may persist, travel long distances, and accumulate in organisms (e.g., DDT).</p></div></article>
+<article class="term-card"><span class="term-number">242</span><div class="term-content"><h4>Carbonate Compensation Depth (CCD)</h4><p>The ocean depth below which calcium carbonate dissolves faster than it is supplied, so carbonate sediments generally do not accumulate.</p></div></article>
+<article class="term-card"><span class="term-number">243</span><div class="term-content"><h4>Eutrophic Lake</h4><p>A lake with high nutrient concentrations and often abundant plant and algal growth; decomposition can cause low oxygen levels, especially at depth.</p></div></article>
+<article class="term-card"><span class="term-number">244</span><div class="term-content"><h4>Oligotrophic Lake</h4><p>A lake with low nutrient levels and relatively low plant and algal growth; such lakes are often clear and may have high dissolved oxygen in deep water.</p></div></article>
+<article class="term-card"><span class="term-number">245</span><div class="term-content"><h4>Leaching</h4><p>The process by which soluble nutrients or pollutants dissolve and are carried downward through soil by percolating water.</p></div></article>
+<article class="term-card"><span class="term-number">246</span><div class="term-content"><h4>Methanogenesis</h4><p>The biological production of methane (CH₄) by anaerobic microorganisms called methanogens in oxygen-deprived environments such as wetlands or landfills.</p></div></article>
+<article class="term-card"><span class="term-number">247</span><div class="term-content"><h4>Sorption</h4><p>A process in which a substance becomes attached to or taken up by another material; it includes adsorption and absorption.</p></div></article>
+<article class="term-card"><span class="term-number">248</span><div class="term-content"><h4>Anoxia</h4><p>A condition in which dissolved oxygen is absent or nearly absent in an aquatic environment; severe anoxia can harm or kill aquatic organisms.</p></div></article>
+<article class="term-card"><span class="term-number">249</span><div class="term-content"><h4>Hypoxia</h4><p>A condition of low dissolved oxygen in water; levels below about 2 mg/L are often used to describe severe aquatic hypoxia, though thresholds vary by species and setting.</p></div></article>
+<article class="term-card"><span class="term-number">250</span><div class="term-content"><h4>Phytoremediation</h4><p>The use of plants and their associated microbes to remove, contain, or break down pollutants in contaminated soil or water.</p></div></article>
+<nav class="nav" aria-label="Page navigation" style="margin-top:32px"><a href="enviquiz.html">← Back to Quiz</a></nav>
+</main>
+<script>
+(function () {
+    const root = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+
+    function applyTheme(theme) {
+        const isDark = theme === 'dark';
+        root.dataset.theme = isDark ? 'dark' : 'light';
+        toggle.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+        toggle.setAttribute('aria-pressed', String(isDark));
+    }
+
+    let savedTheme = 'light';
+    try {
+        savedTheme = localStorage.getItem('reviewerTheme') || 'light';
+    } catch (error) {}
+
+    applyTheme(savedTheme);
+    toggle.addEventListener('click', function () {
+        const nextTheme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+        applyTheme(nextTheme);
+        try {
+            localStorage.setItem('reviewerTheme', nextTheme);
+        } catch (error) {}
+    });
+})();
+</script>
+</body></html>

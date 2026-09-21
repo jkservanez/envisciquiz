@@ -1,0 +1,3982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Environmental Science Quiz Challenge</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --correct: #16a34a;
+            --correct-bg: #dcfce7;
+            --incorrect: #dc2626;
+            --incorrect-bg: #fee2e2;
+            --timer-warn: #eab308;
+            --timer-danger: #dc2626;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        [data-theme="dark"] {
+            --primary: #3b82f6;
+            --primary-hover: #60a5fa;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --correct: #4ade80;
+            --correct-bg: #064e3b;
+            --incorrect: #f87171;
+            --incorrect-bg: #7f1d1d;
+            --timer-warn: #facc15;
+            --timer-danger: #f87171;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        .theme-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .screen {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Start Screen Settings */
+        .start-screen {
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .start-screen h2 {
+            margin-bottom: 15px;
+        }
+
+        .start-screen p {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+        }
+
+        .info-list {
+            text-align: left;
+            max-width: 450px;
+            margin: 0 auto 25px auto;
+            background: var(--bg);
+            padding: 15px 25px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .info-list li {
+            margin-bottom: 8px;
+        }
+
+        .settings-panel {
+            max-width: 450px;
+            margin: 0 auto 25px auto;
+            background: var(--bg);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            text-align: left;
+        }
+
+        .settings-panel h3 {
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+        }
+
+        .setting-group {
+            margin-bottom: 15px;
+        }
+
+        .setting-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .setting-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+        }
+
+        .select-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--card-bg);
+            color: var(--text-main);
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Quiz Header & Timer */
+        .quiz-progress {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .timer-badge {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .timer-badge.warn {
+            color: var(--timer-warn);
+            border-color: var(--timer-warn);
+        }
+
+        .timer-badge.danger {
+            color: var(--timer-danger);
+            border-color: var(--timer-danger);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .round-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .badge-easy { background: #dbeafe; color: #1e40af; }
+        .badge-medium { background: #fef3c7; color: #92400e; }
+        .badge-hard { background: #fee2e2; color: #991b1b; }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Question & Options */
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .option-btn {
+            background: var(--bg);
+            border: 2px solid var(--border);
+            color: var(--text-main);
+            padding: 14px 18px;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .option-btn:hover {
+            border-color: var(--primary);
+        }
+
+        .text-input-container {
+            margin-bottom: 20px;
+        }
+
+        .text-input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg);
+            color: var(--text-main);
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .text-input:focus {
+            border-color: var(--primary);
+        }
+
+        .quiz-footer {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* Results Screen */
+        .results-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 15px auto;
+        }
+
+        .score-num {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .score-label {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .time-spent-text {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+            font-weight: 600;
+        }
+
+        .breakdown-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .breakdown-card {
+            background: var(--bg);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .breakdown-card h4 {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .breakdown-card p {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .review-section {
+            margin-top: 30px;
+        }
+
+        .review-section h3 {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .review-item {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .review-item.correct {
+            background-color: var(--correct-bg);
+            border-color: var(--correct);
+        }
+
+        .review-item.incorrect {
+            background-color: var(--incorrect-bg);
+            border-color: var(--incorrect);
+        }
+
+        .review-q {
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .review-ans {
+            font-size: 0.9rem;
+        }
+
+        .review-explanation {
+            margin-top: 10px;
+            padding: 10px 12px;
+            border-left: 3px solid var(--primary);
+            background: var(--bg);
+            border-radius: 6px;
+            line-height: 1.5;
+        }
+
+        .actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Environmental Science Quiz Challenge</h1>
+        <button class="theme-btn" onclick="toggleTheme()">Theme</button>
+    </header>
+
+    <!-- START SCREEN -->
+    <div id="startScreen" class="screen start-screen">
+        <h2>Ready to Test Your Environmental Science Knowledge?</h2>
+        <p><a class="btn" href="reviewer.html" style="display:inline-block;text-decoration:none;margin:0 0 18px;">Open Reviewer</a></p>
+        <p>This randomized quiz consists of 50 questions divided into three difficulty rounds:</p>
+        
+        <ul class="info-list">
+            <li><strong>Easy Round:</strong> 20 Multiple Choice Questions</li>
+            <li><strong>Medium Round:</strong> 20 Multiple Choice Questions</li>
+            <li><strong>Hard Round:</strong> 10 Fill-in-the-Blank Questions</li>
+        </ul>
+
+        <!-- TIMER CONFIGURATION PANEL -->
+        <div class="settings-panel">
+            <h3>Quiz Timer Settings</h3>
+            
+            <div class="setting-group">
+                <label for="timerModeSelect">Timer Mode:</label>
+                <select id="timerModeSelect" class="select-input" onchange="toggleTimerInputs()">
+                    <option value="none">No Timer (Practice at your own pace)</option>
+                    <option value="overall" selected>Overall Quiz Timer (Single clock for all 50 Qs)</option>
+                    <option value="perQuestion">Per-Question Timer (Clock resets every question)</option>
+                </select>
+            </div>
+
+            <div id="overallTimerGroup" class="setting-group">
+                <label for="overallTimeSelect">Total Quiz Duration:</label>
+                <select id="overallTimeSelect" class="select-input">
+                    <option value="1200">20 Minutes (Standard)</option>
+                    <option value="1800">30 Minutes (Relaxed)</option>
+                    <option value="900">15 Minutes (Fast Pace)</option>
+                    <option value="600">10 Minutes (Speed Challenge)</option>
+                </select>
+            </div>
+
+            <div id="perQuestionTimerGroup" class="setting-group hidden">
+                <label for="perQuestionTimeSelect">Time Per Question:</label>
+                <select id="perQuestionTimeSelect" class="select-input">
+                    <option value="30">30 Seconds</option>
+                    <option value="45" selected>45 Seconds</option>
+                    <option value="60">60 Seconds</option>
+                    <option value="15">15 Seconds (Blitz)</option>
+                </select>
+            </div>
+        </div>
+
+        <button class="btn" onclick="startQuiz()">Start Quiz Now</button>
+    </div>
+
+    <!-- QUIZ SCREEN -->
+    <div id="quizScreen" class="screen hidden">
+        <div class="quiz-progress">
+            <span id="progressText">Question 1 of 50</span>
+            <div id="timerContainer" class="timer-badge">
+                ⏱️ <span id="timerText">00:00</span>
+            </div>
+            <span id="roundBadge" class="round-badge badge-easy">Easy Round</span>
+        </div>
+        
+        <div class="progress-bar-bg">
+            <div id="progressBar" class="progress-bar-fill"></div>
+        </div>
+
+        <div id="questionText" class="question-text">Loading question...</div>
+
+        <!-- Multiple Choice Options -->
+        <div id="mcContainer" class="options-grid"></div>
+
+        <!-- Fill-in-the-blank Input -->
+        <div id="fitbContainer" class="text-input-container hidden">
+            <input type="text" id="fitbInput" class="text-input" placeholder="Type your answer here..." autocomplete="off">
+        </div>
+
+        <div class="quiz-footer">
+            <button id="nextBtn" class="btn" onclick="handleNext()">Next Question</button>
+        </div>
+    </div>
+
+    <!-- RESULTS SCREEN -->
+    <div id="resultsScreen" class="screen hidden">
+        <div class="results-header">
+            <h2>Quiz Complete!</h2>
+            <div class="score-circle">
+                <span id="finalScore" class="score-num">0/50</span>
+                <span id="finalPercent" class="score-label">0%</span>
+            </div>
+            <p id="scoreMessage">Great effort!</p>
+            <p id="timeSpentText" class="time-spent-text"></p>
+        </div>
+
+        <div class="breakdown-grid">
+            <div class="breakdown-card">
+                <h4>Easy</h4>
+                <p id="easyScore">0/20</p>
+            </div>
+            <div class="breakdown-card">
+                <h4>Medium</h4>
+                <p id="mediumScore">0/20</p>
+            </div>
+            <div class="breakdown-card">
+                <h4>Hard</h4>
+                <p id="hardScore">0/10</p>
+            </div>
+        </div>
+
+        <div class="actions" style="display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;">
+            <button class="btn" onclick="returnToStart()">Home</button>
+            <span aria-hidden="true">|</span>
+            <a class="btn" href="reviewer.html" style="display:inline-block;text-decoration:none;">Reviewer</a>
+        </div>
+
+        <div class="review-section">
+            <h3>Question Breakdown</h3>
+            <div id="reviewContainer"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Timer handle must exist before startQuiz() calls clearInterval().
+let timerInterval = null;
+
+// Question Database
+const questionBank = {
+  "easy": [
+    {
+      "q": "What term encompasses everything around us, including all living and non-living components?",
+      "a": "Environment",
+      "options": [
+        "Environment",
+        "Ecosystem",
+        "Biosphere",
+        "Biome"
+      ]
+    },
+    {
+      "q": "What is formed when living organisms interact with one another and with their non-living physical surroundings?",
+      "a": "Ecosystem",
+      "options": [
+        "Ecosystem",
+        "Community",
+        "Habitat",
+        "Population"
+      ]
+    },
+    {
+      "q": "What branch of science studies the relationships between living organisms and their environment?",
+      "a": "Ecology",
+      "options": [
+        "Ecology",
+        "Biology",
+        "Taxonomy",
+        "Geology"
+      ]
+    },
+    {
+      "q": "What do you call a scientist who specializes in studying ecosystems and environmental interactions?",
+      "a": "Ecologist",
+      "options": [
+        "Ecologist",
+        "Biologist",
+        "Taxonomist",
+        "Geologist"
+      ]
+    },
+    {
+      "q": "Which term refers to the living components of an ecosystem, such as plants, animals, and bacteria?",
+      "a": "Biotic Factors",
+      "options": [
+        "Biotic Factors",
+        "Abiotic Factors",
+        "Climatic Factors",
+        "Edaphic Factors"
+      ]
+    },
+    {
+      "q": "Which term refers to non-living physical and chemical elements in an ecosystem, such as sunlight and soil?",
+      "a": "Abiotic Factors",
+      "options": [
+        "Abiotic Factors",
+        "Biotic Factors",
+        "Trophic Levels",
+        "Symbionts"
+      ]
+    },
+    {
+      "q": "What global ecological system integrates all living beings and their relationships across land, water, and air?",
+      "a": "Biosphere",
+      "options": [
+        "Biosphere",
+        "Lithosphere",
+        "Hydrosphere",
+        "Atmosphere"
+      ]
+    },
+    {
+      "q": "What is a large naturally occurring community of flora and fauna occupying a major habitat called?",
+      "a": "Biome",
+      "options": [
+        "Biome",
+        "Ecotone",
+        "Niche",
+        "Biosphere"
+      ]
+    },
+    {
+      "q": "What is the natural home or dwelling place of an organism that provides food, water, and shelter?",
+      "a": "Habitat",
+      "options": [
+        "Habitat",
+        "Niche",
+        "Biome",
+        "Ecotone"
+      ]
+    },
+    {
+      "q": "What term describes a group of organisms commonly considered similar and capable of producing fertile offspring?",
+      "a": "Species",
+      "options": [
+        "Species",
+        "Population",
+        "Community",
+        "Genus"
+      ]
+    },
+    {
+      "q": "What do you call a group of organisms belonging to the same species living in a specific area at the same time?",
+      "a": "Population",
+      "options": [
+        "Population",
+        "Community",
+        "Ecosystem",
+        "Biome"
+      ]
+    },
+    {
+      "q": "What term refers to different populations of organisms living and interacting together in a shared area?",
+      "a": "Community",
+      "options": [
+        "Community",
+        "Population",
+        "Species",
+        "Ecotone"
+      ]
+    },
+    {
+      "q": "What is the term for the variety of life on Earth across genetic, species, and ecosystem levels?",
+      "a": "Biodiversity",
+      "options": [
+        "Biodiversity",
+        "Biomass",
+        "Bioaccumulation",
+        "Biotic Potential"
+      ]
+    },
+    {
+      "q": "What target under the Kunming-Montreal Framework aims to conserve at least 30% of land and ocean areas by 2030?",
+      "a": "30 by 30 Target",
+      "options": [
+        "30 by 30 Target",
+        "Net Zero Target",
+        "Kyoto 2030",
+        "Paris Agreement 30"
+      ],
+      "link": 0
+    },
+    {
+      "q": "What status is given to a plant or animal species that is at serious risk of extinction?",
+      "a": "Endangered Species",
+      "options": [
+        "Endangered Species",
+        "Threatened Species",
+        "Extinct Species",
+        "Invasive Species"
+      ]
+    },
+    {
+      "q": "What term describes the permanent disappearance of a species when no living member remains on Earth?",
+      "a": "Extinction",
+      "options": [
+        "Extinction",
+        "Endangerment",
+        "Extirpation",
+        "Deforestation"
+      ]
+    },
+    {
+      "q": "What do you call a non-native organism that spreads in a new area and causes environmental or economic harm?",
+      "a": "Invasive Species",
+      "options": [
+        "Invasive Species",
+        "Endemic Species",
+        "Keystone Species",
+        "Indicator Species"
+      ]
+    },
+    {
+      "q": "What is the illegal hunting, capturing, or killing of protected wild animals called?",
+      "a": "Poaching",
+      "options": [
+        "Poaching",
+        "Deforestation",
+        "Overfishing",
+        "Eutrophication"
+      ]
+    },
+    {
+      "q": "What term describes catching fish at a rate faster than populations can naturally replenish?",
+      "a": "Overfishing",
+      "options": [
+        "Overfishing",
+        "Siltation",
+        "Poaching",
+        "Bioaccumulation"
+      ]
+    },
+    {
+      "q": "What are organisms called that make their own food through processes like photosynthesis?",
+      "a": "Producers (Autotrophs)",
+      "options": [
+        "Producers (Autotrophs)",
+        "Consumers (Heterotrophs)",
+        "Decomposers",
+        "Detritivores"
+      ]
+    },
+    {
+      "q": "In photosynthesis, green plants use sunlight, carbon dioxide, and water to produce glucose and what gas?",
+      "a": "Oxygen (O₂)",
+      "options": [
+        "Oxygen (O₂)",
+        "Nitrogen (N₂)",
+        "Methane (CH₄)",
+        "Carbon Monoxide (CO)"
+      ]
+    },
+    {
+      "q": "What green pigment in plant cells absorbs light energy required for photosynthesis?",
+      "a": "Chlorophyll",
+      "options": [
+        "Chlorophyll",
+        "Carotenoid",
+        "Xanthophyll",
+        "Anthocyanin"
+      ]
+    },
+    {
+      "q": "What are organisms called that obtain energy by consuming other living organisms?",
+      "a": "Consumers (Heterotrophs)",
+      "options": [
+        "Consumers (Heterotrophs)",
+        "Producers (Autotrophs)",
+        "Autotrophs",
+        "Decomposers"
+      ]
+    },
+    {
+      "q": "What type of consumer feeds directly on producers?",
+      "a": "Primary Consumer",
+      "options": [
+        "Primary Consumer",
+        "Secondary Consumer",
+        "Tertiary Consumer",
+        "Decomposer"
+      ]
+    },
+    {
+      "q": "An animal that eats primary consumers is classified as what type of consumer?",
+      "a": "Secondary Consumer",
+      "options": [
+        "Secondary Consumer",
+        "Primary Consumer",
+        "Producer",
+        "Autotroph"
+      ]
+    },
+    {
+      "q": "An organism that feeds on secondary consumers is known as what?",
+      "a": "Tertiary Consumer",
+      "options": [
+        "Tertiary Consumer",
+        "Primary Consumer",
+        "Producer",
+        "Decomposer"
+      ]
+    },
+    {
+      "q": "What do you call an animal that mainly eats plants?",
+      "a": "Herbivore",
+      "options": [
+        "Herbivore",
+        "Carnivore",
+        "Omnivore",
+        "Scavenger"
+      ]
+    },
+    {
+      "q": "What do you call an animal that mainly eats other animals?",
+      "a": "Carnivore",
+      "options": [
+        "Carnivore",
+        "Herbivore",
+        "Producer",
+        "Detritivore"
+      ]
+    },
+    {
+      "q": "What do you call an animal that regularly consumes both plants and animals?",
+      "a": "Omnivore",
+      "options": [
+        "Omnivore",
+        "Herbivore",
+        "Carnivore",
+        "Decomposer"
+      ]
+    },
+    {
+      "q": "Which organisms break down dead plant and animal matter, returning essential nutrients to the soil?",
+      "a": "Decomposers",
+      "options": [
+        "Decomposers",
+        "Producers",
+        "Primary Consumers",
+        "Apex Predators"
+      ]
+    },
+    {
+      "q": "What type of organism physically consumes dead organic debris (detritus)?",
+      "a": "Detritivore",
+      "options": [
+        "Detritivore",
+        "Decomposer",
+        "Scavenger",
+        "Herbivore"
+      ]
+    },
+    {
+      "q": "What animal feeds on dead animal carcasses that it did not hunt or kill itself?",
+      "a": "Scavenger",
+      "options": [
+        "Scavenger",
+        "Predator",
+        "Herbivore",
+        "Primary Consumer"
+      ]
+    },
+    {
+      "q": "What linear sequence shows how energy passes step-by-step from one organism to another?",
+      "a": "Food Chain",
+      "options": [
+        "Food Chain",
+        "Food Web",
+        "Trophic Pyramid",
+        "Energy Flowchart"
+      ]
+    },
+    {
+      "q": "What complex network consists of interconnected and interdependent food chains in an ecosystem?",
+      "a": "Food Web",
+      "options": [
+        "Food Web",
+        "Food Chain",
+        "Trophic Level",
+        "Ecological Niche"
+      ]
+    },
+    {
+      "q": "What is each hierarchical step or feeding position occupied by an organism in a food chain called?",
+      "a": "Trophic Level",
+      "options": [
+        "Trophic Level",
+        "Ecological Zone",
+        "Niche Level",
+        "Biotic Level"
+      ]
+    },
+    {
+      "q": "According to Lindeman's Efficiency Law, approximately what percentage of energy transfers to the next trophic level?",
+      "a": "10%",
+      "options": [
+        "10%",
+        "1%",
+        "20%",
+        "50%"
+      ],
+      "link": 1
+    },
+    {
+      "q": "What term refers to the total mass of living organic matter within a given area or volume?",
+      "a": "Biomass",
+      "options": [
+        "Biomass",
+        "Biotic Potential",
+        "Bioaccumulation",
+        "Carrying Capacity"
+      ]
+    },
+    {
+      "q": "What cellular process breaks down food molecules to release usable energy in the form of ATP?",
+      "a": "Cellular Respiration",
+      "options": [
+        "Cellular Respiration",
+        "Photosynthesis",
+        "Transpiration",
+        "Fermentation"
+      ]
+    },
+    {
+      "q": "What general term describes a close, long-term biological interaction between two different species?",
+      "a": "Symbiosis",
+      "options": [
+        "Symbiosis",
+        "Predation",
+        "Competition",
+        "Succession"
+      ]
+    },
+    {
+      "q": "In what type of symbiotic relationship do both participating organisms benefit?",
+      "a": "Mutualism",
+      "options": [
+        "Mutualism",
+        "Commensalism",
+        "Parasitism",
+        "Predation"
+      ]
+    },
+    {
+      "q": "In what symbiotic interaction does one organism benefit while the other is unaffected?",
+      "a": "Commensalism",
+      "options": [
+        "Commensalism",
+        "Mutualism",
+        "Parasitism",
+        "Predation"
+      ]
+    },
+    {
+      "q": "In what symbiotic interaction does one organism benefit at the direct expense of its host?",
+      "a": "Parasitism",
+      "options": [
+        "Parasitism",
+        "Commensalism",
+        "Mutualism",
+        "Predation"
+      ]
+    },
+    {
+      "q": "What ecological interaction involves one organism hunting, killing, and feeding on another?",
+      "a": "Predation",
+      "options": [
+        "Predation",
+        "Competition",
+        "Parasitism",
+        "Commensalism"
+      ]
+    },
+    {
+      "q": "What struggle occurs between organisms when shared natural resources like food or space are limited?",
+      "a": "Competition",
+      "options": [
+        "Competition",
+        "Predation",
+        "Symbiosis",
+        "Succession"
+      ]
+    },
+    {
+      "q": "What structural or color adaptation allows an organism to blend into its environment to avoid detection?",
+      "a": "Camouflage",
+      "options": [
+        "Camouflage",
+        "Mimicry",
+        "Mutualism",
+        "Warning Coloration"
+      ]
+    },
+    {
+      "q": "What adaptation involves an organism resembling another organism or object to gain a survival advantage?",
+      "a": "Mimicry",
+      "options": [
+        "Mimicry",
+        "Camouflage",
+        "Commensalism",
+        "Symbiosis"
+      ]
+    },
+    {
+      "q": "What predictable process describes how ecosystem structure and species composition change over time?",
+      "a": "Ecological Succession",
+      "options": [
+        "Ecological Succession",
+        "Ecological Niche",
+        "Eutrophication",
+        "Biomagnification"
+      ]
+    },
+    {
+      "q": "Which form of ecological succession begins on bare rock or land with no pre-existing soil?",
+      "a": "Primary Succession",
+      "options": [
+        "Primary Succession",
+        "Secondary Succession",
+        "Climax Succession",
+        "Autogenic Succession"
+      ]
+    },
+    {
+      "q": "Which ecological succession occurs in an area where a disturbance destroyed a community but left soil intact?",
+      "a": "Secondary Succession",
+      "options": [
+        "Secondary Succession",
+        "Primary Succession",
+        "Bare Rock Succession",
+        "Pioneer Succession"
+      ]
+    },
+    {
+      "q": "What term describes any material or substance obtained from nature that humans use?",
+      "a": "Natural Resource",
+      "options": [
+        "Natural Resource",
+        "Synthetic Resource",
+        "Biomass",
+        "Ecosystem Service"
+      ]
+    },
+    {
+      "q": "What natural resource replenishes through natural processes on a human timescale?",
+      "a": "Renewable Resource",
+      "options": [
+        "Renewable Resource",
+        "Non-Renewable Resource",
+        "Fossil Fuel",
+        "Mineral Resource"
+      ]
+    },
+    {
+      "q": "What resource is used much faster than it can be replaced and takes millions of years to form?",
+      "a": "Non-Renewable Resource",
+      "options": [
+        "Non-Renewable Resource",
+        "Renewable Resource",
+        "Biomass",
+        "Geothermal Resource"
+      ]
+    },
+    {
+      "q": "Which group of non-renewable energy sources includes coal, petroleum, and natural gas?",
+      "a": "Fossil Fuels",
+      "options": [
+        "Fossil Fuels",
+        "Biofuels",
+        "Geothermal Fuels",
+        "Nuclear Energy"
+      ]
+    },
+    {
+      "q": "What form of renewable energy is captured directly from sunlight using solar panels?",
+      "a": "Solar Energy",
+      "options": [
+        "Solar Energy",
+        "Geothermal Energy",
+        "Hydroelectric Energy",
+        "Biomass Energy"
+      ]
+    },
+    {
+      "q": "What form of renewable energy is generated by using moving air currents to turn wind turbines?",
+      "a": "Wind Energy",
+      "options": [
+        "Wind Energy",
+        "Hydroelectric Energy",
+        "Solar Energy",
+        "Thermal Energy"
+      ]
+    },
+    {
+      "q": "What renewable electricity is generated by capturing the kinetic energy of moving or falling water?",
+      "a": "Hydroelectric Energy",
+      "options": [
+        "Hydroelectric Energy",
+        "Geothermal Energy",
+        "Wind Energy",
+        "Ocean Thermal Energy"
+      ]
+    },
+    {
+      "q": "What renewable energy source harnesses heat energy trapped deep inside the Earth?",
+      "a": "Geothermal Energy",
+      "options": [
+        "Geothermal Energy",
+        "Hydroelectric Energy",
+        "Solar Energy",
+        "Biomass Energy"
+      ]
+    },
+    {
+      "q": "What clean fuel is produced by splitting water through electrolysis using renewable electricity?",
+      "a": "Green Hydrogen",
+      "options": [
+        "Green Hydrogen",
+        "Biogas",
+        "Liquefied Petroleum Gas",
+        "Natural Gas"
+      ]
+    },
+    {
+      "q": "What outermost layer of Earth's crust is composed of rock particles, minerals, organic matter, water, and air?",
+      "a": "Soil",
+      "options": [
+        "Soil",
+        "Bedrock",
+        "Lithosphere",
+        "Humus"
+      ]
+    },
+    {
+      "q": "What dark, nutrient-rich organic matter is created by the decay of plant and animal tissues in soil?",
+      "a": "Humus",
+      "options": [
+        "Humus",
+        "Topsoil",
+        "Bedrock",
+        "Subsoil"
+      ]
+    },
+    {
+      "q": "What upper layer of soil contains high organic matter and essential nutrients for plant growth?",
+      "a": "Topsoil",
+      "options": [
+        "Topsoil",
+        "Subsoil",
+        "Bedrock",
+        "Parent Material"
+      ]
+    },
+    {
+      "q": "What solid rock layer lies beneath loose soil and surface materials?",
+      "a": "Bedrock",
+      "options": [
+        "Bedrock",
+        "Topsoil",
+        "Subsoil",
+        "Humus"
+      ]
+    },
+    {
+      "q": "What is water located beneath Earth's surface stored in soil pores and rock formations called?",
+      "a": "Groundwater",
+      "options": [
+        "Groundwater",
+        "Surface Water",
+        "Runoff",
+        "Leachate"
+      ]
+    },
+    {
+      "q": "What underground layer of permeable rock or sediment holds and transmits groundwater?",
+      "a": "Aquifer",
+      "options": [
+        "Aquifer",
+        "Watershed",
+        "Bedrock",
+        "Water Table"
+      ]
+    },
+    {
+      "q": "What land area channels all precipitation and runoff into a common body of water?",
+      "a": "Watershed",
+      "options": [
+        "Watershed",
+        "Aquifer",
+        "Estuary",
+        "Intertidal Zone"
+      ]
+    },
+    {
+      "q": "What process involves the wearing away and transportation of topsoil by wind, water, ice, or gravity?",
+      "a": "Soil Erosion",
+      "options": [
+        "Soil Erosion",
+        "Siltation",
+        "Eutrophication",
+        "Desertification"
+      ]
+    },
+    {
+      "q": "What is the clearance or permanent removal of forest cover for non-forest land uses called?",
+      "a": "Deforestation",
+      "options": [
+        "Deforestation",
+        "Afforestation",
+        "Reforestation",
+        "Desertification"
+      ]
+    },
+    {
+      "q": "What process involves restoring trees to land where forests were previously removed or degraded?",
+      "a": "Reforestation",
+      "options": [
+        "Reforestation",
+        "Afforestation",
+        "Deforestation",
+        "Forest Degradation"
+      ]
+    },
+    {
+      "q": "What is the establishment of a forest on land that has not been recently forested called?",
+      "a": "Afforestation",
+      "options": [
+        "Afforestation",
+        "Reforestation",
+        "Deforestation",
+        "Regenerative Forestry"
+      ]
+    },
+    {
+      "q": "What soil conservation method involves plowing across sloping land along constant elevation lines?",
+      "a": "Contour Plowing",
+      "options": [
+        "Contour Plowing",
+        "Terracing",
+        "Crop Rotation",
+        "Strip Cropping"
+      ]
+    },
+    {
+      "q": "What practice involves cutting flat, step-like ledges into hillsides to reduce water runoff and soil erosion?",
+      "a": "Terracing",
+      "options": [
+        "Terracing",
+        "Contour Plowing",
+        "Crop Rotation",
+        "Afforestation"
+      ]
+    },
+    {
+      "q": "What agricultural system focuses on improving soil health through cover crops and reduced tillage?",
+      "a": "Regenerative Agriculture",
+      "options": [
+        "Regenerative Agriculture",
+        "Monoculture",
+        "Slash-and-Burn Agriculture",
+        "Hydroponics"
+      ]
+    },
+    {
+      "q": "What farming practice involves growing different crops sequentially on the same land to maintain soil fertility?",
+      "a": "Crop Rotation",
+      "options": [
+        "Crop Rotation",
+        "Monoculture",
+        "Terracing",
+        "Contour Plowing"
+      ]
+    },
+    {
+      "q": "What controlled process breaks down organic waste into a rich soil amendment?",
+      "a": "Composting",
+      "options": [
+        "Composting",
+        "Incineration",
+        "Landfilling",
+        "Siltation"
+      ]
+    },
+    {
+      "q": "What continuous process describes the movement of water through Earth's surface, underground, and atmosphere?",
+      "a": "Water Cycle",
+      "options": [
+        "Water Cycle",
+        "Carbon Cycle",
+        "Nitrogen Cycle",
+        "Oxygen Cycle"
+      ]
+    },
+    {
+      "q": "What phase of the water cycle involves liquid water changing into water vapor upon absorbing heat?",
+      "a": "Evaporation",
+      "options": [
+        "Evaporation",
+        "Condensation",
+        "Transpiration",
+        "Precipitation"
+      ]
+    },
+    {
+      "q": "What process describes water moving through plants and evaporating into the atmosphere through leaves?",
+      "a": "Transpiration",
+      "options": [
+        "Transpiration",
+        "Evaporation",
+        "Condensation",
+        "Percolation"
+      ]
+    },
+    {
+      "q": "What process occurs when water vapor in the air cools and changes back into liquid droplets to form clouds?",
+      "a": "Condensation",
+      "options": [
+        "Condensation",
+        "Evaporation",
+        "Transpiration",
+        "Sublimation"
+      ]
+    },
+    {
+      "q": "What term describes liquid or frozen water falling from clouds to Earth, such as rain, snow, or hail?",
+      "a": "Precipitation",
+      "options": [
+        "Precipitation",
+        "Condensation",
+        "Evaporation",
+        "Runoff"
+      ]
+    },
+    {
+      "q": "What term describes the gathering of water in lakes, rivers, oceans, and aquifers during the water cycle?",
+      "a": "Collection",
+      "options": [
+        "Collection",
+        "Percolation",
+        "Transpiration",
+        "Condensation"
+      ]
+    },
+    {
+      "q": "What practice involves using water wisely and minimally to prevent unnecessary waste?",
+      "a": "Water Conservation",
+      "options": [
+        "Water Conservation",
+        "Water Harvesting",
+        "Eutrophication",
+        "Desalination"
+      ]
+    },
+    {
+      "q": "What layer of protective gases surrounds the Earth, held in place by gravity?",
+      "a": "Atmosphere",
+      "options": [
+        "Atmosphere",
+        "Lithosphere",
+        "Hydrosphere",
+        "Biosphere"
+      ]
+    },
+    {
+      "q": "Which layer of the atmosphere is closest to Earth's surface and is where weather occurs?",
+      "a": "Troposphere",
+      "options": [
+        "Troposphere",
+        "Stratosphere",
+        "Mesosphere",
+        "Thermosphere"
+      ]
+    },
+    {
+      "q": "Which layer of the atmosphere lies directly above the troposphere and houses the protective ozone layer?",
+      "a": "Stratosphere",
+      "options": [
+        "Stratosphere",
+        "Troposphere",
+        "Mesosphere",
+        "Exosphere"
+      ]
+    },
+    {
+      "q": "What atmospheric layer absorbs and filters out harmful solar ultraviolet (UV) radiation?",
+      "a": "Ozone Layer",
+      "options": [
+        "Ozone Layer",
+        "Ionosphere",
+        "Troposphere",
+        "Magnetosphere"
+      ]
+    },
+    {
+      "q": "What term refers to the short-term state of atmospheric conditions at a specific time and place?",
+      "a": "Weather",
+      "options": [
+        "Weather",
+        "Climate",
+        "Season",
+        "Microclimate"
+      ]
+    },
+    {
+      "q": "What term describes long-term patterns and average atmospheric conditions in a region over decades?",
+      "a": "Climate",
+      "options": [
+        "Climate",
+        "Weather",
+        "Meteorology",
+        "Atmospheric Pressure"
+      ]
+    },
+    {
+      "q": "Which meteorological instrument is specifically used to measure atmospheric pressure?",
+      "a": "Barometer",
+      "options": [
+        "Barometer",
+        "Anemometer",
+        "Hygrometer",
+        "Thermometer"
+      ]
+    },
+    {
+      "q": "Which instrument is specifically designed to measure wind speed?",
+      "a": "Anemometer",
+      "options": [
+        "Anemometer",
+        "Barometer",
+        "Wind Vane",
+        "Hygrometer"
+      ]
+    },
+    {
+      "q": "Which instrument is used to measure relative humidity in the air?",
+      "a": "Hygrometer",
+      "options": [
+        "Hygrometer",
+        "Anemometer",
+        "Barometer",
+        "Thermometer"
+      ]
+    },
+    {
+      "q": "Which meteorological tool is used to show the direction from which the wind is blowing?",
+      "a": "Wind Vane",
+      "options": [
+        "Wind Vane",
+        "Anemometer",
+        "Barometer",
+        "Hygrometer"
+      ]
+    },
+    {
+      "q": "What instrument is used to measure temperature?",
+      "a": "Thermometer",
+      "options": [
+        "Thermometer",
+        "Barometer",
+        "Hygrometer",
+        "Anemometer"
+      ]
+    },
+    {
+      "q": "What instrument is used to collect and measure liquid precipitation over a set period?",
+      "a": "Rain Gauge",
+      "options": [
+        "Rain Gauge",
+        "Barometer",
+        "Hygrometer",
+        "Anemometer"
+      ]
+    },
+    {
+      "q": "Which high-altitude clouds are thin, feathery, and composed mainly of ice crystals?",
+      "a": "Cirrus Clouds",
+      "options": [
+        "Cirrus Clouds",
+        "Cumulus Clouds",
+        "Stratus Clouds",
+        "Cumulonimbus Clouds"
+      ]
+    },
+    {
+      "q": "Which puffy, white clouds with flat bases usually indicate fair weather?",
+      "a": "Cumulus Clouds",
+      "options": [
+        "Cumulus Clouds",
+        "Cirrus Clouds",
+        "Stratus Clouds",
+        "Cumulonimbus Clouds"
+      ]
+    },
+    {
+      "q": "Which low, flat, grey clouds form a uniform sheet covering the entire sky like a blanket?",
+      "a": "Stratus Clouds",
+      "options": [
+        "Stratus Clouds",
+        "Cirrus Clouds",
+        "Cumulus Clouds",
+        "Altocumulus Clouds"
+      ]
+    },
+    {
+      "q": "Which towering cloud structures are directly associated with severe thunderstorms and heavy rain?",
+      "a": "Cumulonimbus Clouds",
+      "options": [
+        "Cumulonimbus Clouds",
+        "Cirrus Clouds",
+        "Stratus Clouds",
+        "Cumulus Clouds"
+      ]
+    },
+    {
+      "q": "What is a mature tropical cyclone called when it forms in the western North Pacific Ocean?",
+      "a": "Typhoon",
+      "options": [
+        "Typhoon",
+        "Hurricane",
+        "Cyclone",
+        "Willy-Willy"
+      ]
+    },
+    {
+      "q": "What do you call the calm, low-pressure central region of a tropical cyclone?",
+      "a": "Eye of a Typhoon",
+      "options": [
+        "Eye of a Typhoon",
+        "Eyewall",
+        "Storm Center",
+        "Low Axis"
+      ]
+    },
+    {
+      "q": "Where are the strongest winds and heaviest thunderstorms found within a tropical cyclone?",
+      "a": "Eyewall",
+      "options": [
+        "Eyewall",
+        "Eye of a Typhoon",
+        "Outer Rainband",
+        "Storm Surge Zone"
+      ]
+    },
+    {
+      "q": "What is an abnormal rise of coastal sea level generated by storm winds and low pressure called?",
+      "a": "Storm Surge",
+      "options": [
+        "Storm Surge",
+        "Tsunami",
+        "Tidal Wave",
+        "High Tide"
+      ]
+    },
+    {
+      "q": "What seasonal wind pattern brings dramatic rainfall shifts in the Philippines (Habagat and Amihan)?",
+      "a": "Monsoon",
+      "options": [
+        "Monsoon",
+        "Trade Winds",
+        "Coriolis Current",
+        "El Niño"
+      ]
+    },
+    {
+      "q": "What climate pattern involving unusual Pacific ocean warming increases drought risk in the Philippines?",
+      "a": "El Niño",
+      "options": [
+        "El Niño",
+        "La Niña",
+        "ITCZ",
+        "Dipole Shift"
+      ]
+    },
+    {
+      "q": "What general term describes the contamination of the environment by harmful agents?",
+      "a": "Pollution",
+      "options": [
+        "Pollution",
+        "Eutrophication",
+        "Siltation",
+        "Erosion"
+      ]
+    },
+    {
+      "q": "What do you call any substance or form of energy that causes environmental contamination or harm?",
+      "a": "Pollutant",
+      "options": [
+        "Pollutant",
+        "Toxin",
+        "Hazardous Waste",
+        "Ebiotic Factor"
+      ]
+    },
+    {
+      "q": "Vehicle exhaust, factory emissions, and fossil fuel combustion are major sources of what type of pollution?",
+      "a": "Air Pollution",
+      "options": [
+        "Air Pollution",
+        "Water Pollution",
+        "Noise Pollution",
+        "Thermal Pollution"
+      ]
+    },
+    {
+      "q": "Sewage, industrial effluents, and agricultural runoff are primary contributors to what type of pollution?",
+      "a": "Water Pollution",
+      "options": [
+        "Water Pollution",
+        "Air Pollution",
+        "Light Pollution",
+        "Soil Pollution"
+      ]
+    },
+    {
+      "q": "Improper solid waste disposal, industrial spills, and chemical pesticides cause what form of pollution?",
+      "a": "Soil Pollution",
+      "options": [
+        "Soil Pollution",
+        "Noise Pollution",
+        "Thermal Pollution",
+        "Air Pollution"
+      ]
+    },
+    {
+      "q": "Harmful, excessive, or unwanted sound from traffic and construction machinery is classified as what?",
+      "a": "Noise Pollution",
+      "options": [
+        "Noise Pollution",
+        "Light Pollution",
+        "Air Pollution",
+        "Thermal Pollution"
+      ]
+    },
+    {
+      "q": "Excessive or misdirected artificial light at night that disrupts wildlife is known as what?",
+      "a": "Light Pollution",
+      "options": [
+        "Light Pollution",
+        "Noise Pollution",
+        "Thermal Pollution",
+        "Visual Pollution"
+      ]
+    },
+    {
+      "q": "Pollution originating from a single, identifiable, localized pipe or ditch is known as what?",
+      "a": "Point Source Pollution",
+      "options": [
+        "Point Source Pollution",
+        "Non-Point Source Pollution",
+        "Diffuse Pollution",
+        "Thermal Pollution"
+      ]
+    },
+    {
+      "q": "Pollution entering water bodies from widespread, diffuse land areas like farms is called what?",
+      "a": "Non-Point Source Pollution",
+      "options": [
+        "Non-Point Source Pollution",
+        "Point Source Pollution",
+        "Direct Effluent",
+        "Localized Runoff"
+      ]
+    },
+    {
+      "q": "What air pollution condition involves a mixture of smoke, fog, and ground-level ozone formed by sunlight?",
+      "a": "Smog",
+      "options": [
+        "Smog",
+        "Acid Rain",
+        "Temperature Inversion",
+        "Particulate Haze"
+      ]
+    },
+    {
+      "q": "What form of precipitation is made abnormally acidic by sulfur dioxide and nitrogen oxides in the air?",
+      "a": "Acid Rain",
+      "options": [
+        "Acid Rain",
+        "Photochemical Smog",
+        "Siltation",
+        "Thermal Precipitation"
+      ],
+      "link": 9
+    },
+    {
+      "q": "What process occurs when excess nutrients enter water bodies, triggering rapid algal growth and oxygen loss?",
+      "a": "Eutrophication",
+      "options": [
+        "Eutrophication",
+        "Biomagnification",
+        "Bioaccumulation",
+        "Siltation"
+      ]
+    },
+    {
+      "q": "What is a rapid increase or accumulation of microscopic algae populations in an aquatic system called?",
+      "a": "Algal Bloom",
+      "options": [
+        "Algal Bloom",
+        "Red Tide",
+        "Eutrophication",
+        "Pycnocline Bloom"
+      ]
+    },
+    {
+      "q": "What is a common term for harmful coastal algal blooms caused by toxic dinoflagellates?",
+      "a": "Red Tide",
+      "options": [
+        "Red Tide",
+        "Eutrophication",
+        "Siltation",
+        "Thermal Discharge"
+      ]
+    },
+    {
+      "q": "What form of pollution occurs when warm industrial water discharges alter natural aquatic temperatures?",
+      "a": "Thermal Pollution",
+      "options": [
+        "Thermal Pollution",
+        "Point Source Pollution",
+        "Non-Point Source Pollution",
+        "Chemical Pollution"
+      ]
+    },
+    {
+      "q": "The accumulation of synthetic non-biodegradable items in terrestrial and marine habitats is called what?",
+      "a": "Plastic Pollution",
+      "options": [
+        "Plastic Pollution",
+        "Microplastic Contamination",
+        "E-Waste Pollution",
+        "Hazardous Waste"
+      ]
+    },
+    {
+      "q": "What do you call synthetic plastic particles smaller than 5 millimeters found throughout ecosystems?",
+      "a": "Microplastics",
+      "options": [
+        "Microplastics",
+        "Single-Use Plastics",
+        "Pelagic Plastics",
+        "Leachate Particles"
+      ]
+    },
+    {
+      "q": "What term describes the gradual buildup of toxic chemicals inside a single organism over its lifetime?",
+      "a": "Bioaccumulation",
+      "options": [
+        "Bioaccumulation",
+        "Biomagnification",
+        "Eutrophication",
+        "Sorption"
+      ]
+    },
+    {
+      "q": "What ecological process describes the increasing concentration of persistent toxins up a food chain?",
+      "a": "Biomagnification",
+      "options": [
+        "Biomagnification",
+        "Bioaccumulation",
+        "Eutrophication",
+        "Denitrification"
+      ]
+    },
+    {
+      "q": "What familiar waste reduction framework stands for Reduce, Reuse, and Recycle?",
+      "a": "3 Rs of Waste Management",
+      "options": [
+        "3 Rs of Waste Management",
+        "Zero Waste Hierarchy",
+        "Linear Waste Model",
+        "Circular Model"
+      ]
+    },
+    {
+      "q": "Which waste management strategy focuses on decreasing the total volume of waste generated at the source?",
+      "a": "Reduce",
+      "options": [
+        "Reduce",
+        "Reuse",
+        "Recycle",
+        "Refurbish"
+      ]
+    },
+    {
+      "q": "Using an item multiple times for its original or new purpose before discarding it is known as what?",
+      "a": "Reuse",
+      "options": [
+        "Reuse",
+        "Reduce",
+        "Recycle",
+        "Repurpose"
+      ]
+    }
+  ],
+  "medium": [
+    {
+      "q": "Processing discarded materials to manufacture brand-new products is called what?",
+      "a": "Recycle",
+      "options": [
+        "Recycle",
+        "Reuse",
+        "Reduce",
+        "Compost"
+      ]
+    },
+    {
+      "q": "Which economic model emphasizes keeping materials in long-term use through repair, reuse, and recycling?",
+      "a": "Circular Economy",
+      "options": [
+        "Circular Economy",
+        "Linear Economy",
+        "Market Economy",
+        "Traditional Economy"
+      ]
+    },
+    {
+      "q": "What resource-use pattern is commonly described as 'take -> make -> use -> throw away'?",
+      "a": "Linear Economy",
+      "options": [
+        "Linear Economy",
+        "Circular Economy",
+        "Zero Waste Model",
+        "Sustainable Economy"
+      ]
+    },
+    {
+      "q": "Discarded solid or semi-solid materials from domestic, commercial, and industrial activities are called what?",
+      "a": "Solid Waste",
+      "options": [
+        "Solid Waste",
+        "Hazardous Waste",
+        "Leachate",
+        "E-Waste"
+      ]
+    },
+    {
+      "q": "Waste materials that can be naturally broken down by microorganisms, like food scraps, are called what?",
+      "a": "Biodegradable Waste",
+      "options": [
+        "Biodegradable Waste",
+        "Non-Biodegradable Waste",
+        "Hazardous Waste",
+        "E-Waste"
+      ]
+    },
+    {
+      "q": "Materials that resist natural biological decomposition, such as plastics and metals, are classified as what?",
+      "a": "Non-Biodegradable Waste",
+      "options": [
+        "Non-Biodegradable Waste",
+        "Biodegradable Waste",
+        "Organic Waste",
+        "Compostable Waste"
+      ]
+    },
+    {
+      "q": "Waste materials possessing toxic, reactive, or corrosive properties that threaten health are called what?",
+      "a": "Hazardous Waste",
+      "options": [
+        "Hazardous Waste",
+        "Solid Waste",
+        "Biodegradable Waste",
+        "E-Waste"
+      ]
+    },
+    {
+      "q": "Discarded electrical or electronic equipment like old phones and computers is classified as what?",
+      "a": "Electronic Waste (E-waste)",
+      "options": [
+        "Electronic Waste (E-waste)",
+        "Hazardous Waste",
+        "Non-Biodegradable Waste",
+        "Solid Waste"
+      ]
+    },
+    {
+      "q": "What engineered site disposes of solid waste by compacting and burying it under soil layers?",
+      "a": "Landfill",
+      "options": [
+        "Landfill",
+        "Dump Site",
+        "Incinerator",
+        "Compost Pit"
+      ]
+    },
+    {
+      "q": "What modern landfill uses synthetic liners and collection pipes to prevent groundwater contamination?",
+      "a": "Sanitary Landfill",
+      "options": [
+        "Sanitary Landfill",
+        "Open Dumpsite",
+        "Incineration Plant",
+        "Leachate Basin"
+      ]
+    },
+    {
+      "q": "What toxic liquid forms when rainwater drains through buried solid waste in a landfill?",
+      "a": "Leachate",
+      "options": [
+        "Leachate",
+        "Effluent",
+        "Runoff",
+        "Silt"
+      ],
+      "link": 27
+    },
+    {
+      "q": "What controlled process involves burning solid waste materials at high temperatures?",
+      "a": "Incineration",
+      "options": [
+        "Incineration",
+        "Composting",
+        "Landfilling",
+        "Pyrolysis"
+      ]
+    },
+    {
+      "q": "What sustainability goal focuses on total waste prevention and closed-loop resource recovery?",
+      "a": "Zero Waste",
+      "options": [
+        "Zero Waste",
+        "Net Zero",
+        "Circular Carbon",
+        "30 by 30 Target"
+      ]
+    },
+    {
+      "q": "What concept refers to meeting present human needs without compromising future generations?",
+      "a": "Sustainability",
+      "options": [
+        "Sustainability",
+        "Conservation",
+        "Preservation",
+        "Resilience"
+      ]
+    },
+    {
+      "q": "What practice involves protecting, preserving, and wisely managing natural resources for the future?",
+      "a": "Conservation",
+      "options": [
+        "Conservation",
+        "Preservation",
+        "Exploitation",
+        "Restoration"
+      ]
+    },
+    {
+      "q": "What practice focuses on protecting natural areas strictly from human alteration or development?",
+      "a": "Preservation",
+      "options": [
+        "Preservation",
+        "Conservation",
+        "Mitigation",
+        "Adaptation"
+      ]
+    },
+    {
+      "q": "What metric represents total greenhouse gas emissions associated with a person, activity, or product?",
+      "a": "Carbon Footprint",
+      "options": [
+        "Carbon Footprint",
+        "Ecological Footprint",
+        "Biotic Potential",
+        "Carrying Capacity"
+      ]
+    },
+    {
+      "q": "What term describes long-term shifts in global atmospheric temperatures, weather, and sea levels?",
+      "a": "Climate Change",
+      "options": [
+        "Climate Change",
+        "Global Warming",
+        "Weather Variation",
+        "Radiative Forcing"
+      ]
+    },
+    {
+      "q": "What is the long-term rise in Earth's average surface temperature driven by human emissions called?",
+      "a": "Global Warming",
+      "options": [
+        "Global Warming",
+        "Greenhouse Effect",
+        "Climate Resilience",
+        "Urban Heat Island"
+      ]
+    },
+    {
+      "q": "What natural process occurs when atmospheric gases absorb and re-emit outgoing infrared heat?",
+      "a": "Greenhouse Effect",
+      "options": [
+        "Greenhouse Effect",
+        "Global Warming",
+        "Radiative Forcing",
+        "Albedo Effect"
+      ]
+    },
+    {
+      "q": "Carbon dioxide, methane, nitrous oxide, and water vapor belong to what category of atmospheric gases?",
+      "a": "Greenhouse Gases (GHGs)",
+      "options": [
+        "Greenhouse Gases (GHGs)",
+        "Ozone Depleting Gases",
+        "Noble Gases",
+        "Aerosols"
+      ]
+    },
+    {
+      "q": "What synthetic industrial chemicals formerly used as refrigerants destroy stratospheric ozone molecules?",
+      "a": "Chlorofluorocarbons (CFCs)",
+      "options": [
+        "Chlorofluorocarbons (CFCs)",
+        "Greenhouse Gases",
+        "Nitrogen Oxides",
+        "Particulate Matter"
+      ]
+    },
+    {
+      "q": "What term describes actions aimed at reducing greenhouse gas emissions or enhancing carbon sinks?",
+      "a": "Climate Mitigation",
+      "options": [
+        "Climate Mitigation",
+        "Climate Adaptation",
+        "Climate Resilience",
+        "Geoengineering"
+      ]
+    },
+    {
+      "q": "What term describes adjustments made to reduce human and ecosystem vulnerability to climate impacts?",
+      "a": "Climate Adaptation",
+      "options": [
+        "Climate Adaptation",
+        "Climate Mitigation",
+        "Carbon Offsetting",
+        "Net Zero"
+      ]
+    },
+    {
+      "q": "What state is achieved when greenhouse gas emissions are completely balanced by greenhouse gas removals?",
+      "a": "Net Zero",
+      "options": [
+        "Net Zero",
+        "Zero Waste",
+        "Carbon Neutrality Target",
+        "Radiative Balance"
+      ]
+    },
+    {
+      "q": "What technology captures industrial carbon dioxide emissions and injects them deep underground?",
+      "a": "Carbon Capture and Storage (CCS)",
+      "options": [
+        "Carbon Capture and Storage (CCS)",
+        "Phytoremediation",
+        "Direct Air Scrubbing",
+        "Carbon Offsetting"
+      ]
+    },
+    {
+      "q": "Vehicles powered by electric motors and batteries that emit no tailpipe emissions while driving are called what?",
+      "a": "Electric Vehicles (EVs)",
+      "options": [
+        "Electric Vehicles (EVs)",
+        "Hybrid Vehicles",
+        "Biofuel Vehicles",
+        "Hydrogen Vehicles"
+      ]
+    },
+    {
+      "q": "What efficient device transfers thermal energy into or out of buildings rather than burning fuel directly?",
+      "a": "Heat Pump",
+      "options": [
+        "Heat Pump",
+        "Geothermal Boiler",
+        "Incinerator",
+        "Thermal Condenser"
+      ]
+    },
+    {
+      "q": "What remote-sensing space tools allow scientists to track global deforestation, floods, and ice cover?",
+      "a": "Earth-Observation Satellites",
+      "options": [
+        "Earth-Observation Satellites",
+        "Weather Balloons",
+        "GPS Transponders",
+        "Radio Sounders"
+      ]
+    },
+    {
+      "q": "What strategies use ecosystem protection or restoration to address societal problems like flooding?",
+      "a": "Nature-Based Solutions",
+      "options": [
+        "Nature-Based Solutions",
+        "Geoengineering",
+        "Climate Mitigation",
+        "Technical Adaptation"
+      ]
+    },
+    {
+      "q": "Salt-tolerant coastal trees that protect shorelines from erosion and store carbon are called what?",
+      "a": "Mangroves",
+      "options": [
+        "Mangroves",
+        "Sea Grasses",
+        "Kelp Forests",
+        "Estuaries"
+      ]
+    },
+    {
+      "q": "What ecological practice involves re-establishing degraded coastal mangrove forests?",
+      "a": "Mangrove Restoration",
+      "options": [
+        "Mangrove Restoration",
+        "Afforestation",
+        "Reforestation",
+        "Wetland Reclamation"
+      ]
+    },
+    {
+      "q": "What areas are saturated or covered with water permanently or seasonally, such as marshes and swamps?",
+      "a": "Wetlands",
+      "options": [
+        "Wetlands",
+        "Estuaries",
+        "Watersheds",
+        "Aquifers"
+      ]
+    },
+    {
+      "q": "Heat-stressed corals expelling their microscopic internal algae and turning white is called what?",
+      "a": "Coral Bleaching",
+      "options": [
+        "Coral Bleaching",
+        "Ocean Acidification",
+        "Eutrophication",
+        "Red Tide"
+      ]
+    },
+    {
+      "q": "What term describes built-up urban areas becoming significantly warmer than surrounding rural areas?",
+      "a": "Urban Heat Island",
+      "options": [
+        "Urban Heat Island",
+        "Microclimate Drift",
+        "Global Warming",
+        "Thermal Inversion"
+      ]
+    },
+    {
+      "q": "What phenomenon is caused by warming seawater expanding combined with melting land-based ice sheets?",
+      "a": "Sea Level Rise",
+      "options": [
+        "Sea Level Rise",
+        "Ocean Acidification",
+        "Storm Surge",
+        "Thermal Stratification"
+      ]
+    },
+    {
+      "q": "What ongoing process describes the decrease in ocean pH caused by absorbing excess atmospheric CO₂?",
+      "a": "Ocean Acidification",
+      "options": [
+        "Ocean Acidification",
+        "Coral Bleaching",
+        "Eutrophication",
+        "Thermal Pollution"
+      ]
+    },
+    {
+      "q": "The division of large, continuous natural habitats into small, isolated patches by roads is called what?",
+      "a": "Habitat Fragmentation",
+      "options": [
+        "Habitat Fragmentation",
+        "Deforestation",
+        "Desertification",
+        "Ecotone Creation"
+      ]
+    },
+    {
+      "q": "What process captures and stores atmospheric carbon dioxide in biological or geological sinks?",
+      "a": "Carbon Sequestration",
+      "options": [
+        "Carbon Sequestration",
+        "Carbon Capture",
+        "Carbon Footprinting",
+        "Decarbonization"
+      ]
+    },
+    {
+      "q": "What term describes the capacity of natural or human systems to withstand and recover from climate impacts?",
+      "a": "Climate Resilience",
+      "options": [
+        "Climate Resilience",
+        "Climate Adaptation",
+        "Climate Mitigation",
+        "Sustainability"
+      ]
+    },
+    {
+      "q": "Which Philippine law is known as the Philippine Clean Air Act of 1999?",
+      "a": "RA 8749",
+      "options": [
+        "RA 8749",
+        "RA 9003",
+        "RA 9275",
+        "RA 9147"
+      ],
+      "link": 4
+    },
+    {
+      "q": "Which Philippine law provides a systematic framework for solid waste management and recycling?",
+      "a": "RA 9003",
+      "options": [
+        "RA 9003",
+        "RA 8749",
+        "RA 9275",
+        "RA 7586"
+      ],
+      "link": 3
+    },
+    {
+      "q": "Which Philippine law is known as the Philippine Clean Water Act of 2004?",
+      "a": "RA 9275",
+      "options": [
+        "RA 9275",
+        "RA 8749",
+        "RA 9003",
+        "RA 9147"
+      ],
+      "link": 5
+    },
+    {
+      "q": "Which Philippine law protects wild flora, fauna, and their natural habitats?",
+      "a": "RA 9147",
+      "options": [
+        "RA 9147",
+        "RA 8749",
+        "RA 9003",
+        "RA 9275"
+      ],
+      "link": 6
+    },
+    {
+      "q": "Which Philippine law established the National Integrated Protected Areas System (amended by RA 11038)?",
+      "a": "RA 7586",
+      "options": [
+        "RA 7586",
+        "RA 8749",
+        "RA 9003",
+        "RA 9275"
+      ],
+      "link": 7
+    },
+    {
+      "q": "What is a legally designated geographic space managed to achieve long-term nature conservation called?",
+      "a": "Protected Area",
+      "options": [
+        "Protected Area",
+        "Reserve Niche",
+        "Ecotone Zone",
+        "National Sanctuary"
+      ]
+    },
+    {
+      "q": "Which executive department of the Philippine government oversees environment and natural resources?",
+      "a": "DENR",
+      "options": [
+        "DENR",
+        "BFAR",
+        "PAGASA",
+        "PHIVOLCS"
+      ]
+    },
+    {
+      "q": "Which Philippine agency under the Department of Agriculture manages fisheries and aquatic resources?",
+      "a": "BFAR",
+      "options": [
+        "BFAR",
+        "DENR",
+        "PAGASA",
+        "PHIVOLCS"
+      ]
+    },
+    {
+      "q": "Which Philippine state agency provides weather forecasts, climate monitoring, and typhoon advisories?",
+      "a": "PAGASA",
+      "options": [
+        "PAGASA",
+        "PHIVOLCS",
+        "DENR",
+        "BFAR"
+      ],
+      "link": 40
+    },
+    {
+      "q": "Which Philippine agency monitors volcanic eruptions, earthquakes, and tsunamis?",
+      "a": "PHIVOLCS",
+      "options": [
+        "PHIVOLCS",
+        "PAGASA",
+        "DENR",
+        "BFAR"
+      ],
+      "link": 41
+    },
+    {
+      "q": "What agricultural method avoids synthetic pesticides, chemical fertilizers, and GMOs according to standards?",
+      "a": "Organic Farming",
+      "options": [
+        "Organic Farming",
+        "Regenerative Farming",
+        "Hydroponics",
+        "Integrated Farming"
+      ]
+    },
+    {
+      "q": "What practice involves collecting and storing rainwater runoff for later non-potable uses?",
+      "a": "Rainwater Harvesting",
+      "options": [
+        "Rainwater Harvesting",
+        "Groundwater Infiltration",
+        "Desalination",
+        "Watershed Diversion"
+      ]
+    },
+    {
+      "q": "What ecosystem-based strategy combines biological, physical, and minimal chemical controls to manage crop pests?",
+      "a": "Integrated Pest Management (IPM)",
+      "options": [
+        "Integrated Pest Management (IPM)",
+        "Organic Farming",
+        "Monoculture Control",
+        "Biological Eradication"
+      ]
+    },
+    {
+      "q": "What metric measures human demand on nature compared to Earth's capacity to regenerate resources?",
+      "a": "Ecological Footprint",
+      "options": [
+        "Ecological Footprint",
+        "Carbon Footprint",
+        "Carrying Capacity",
+        "Biotic Index"
+      ]
+    },
+    {
+      "q": "What is the maximum population size of a species that an ecosystem can sustain indefinitely?",
+      "a": "Carrying Capacity",
+      "options": [
+        "Carrying Capacity",
+        "Biotic Potential",
+        "Environmental Resistance",
+        "Maximum Yield"
+      ],
+      "link": 20
+    },
+    {
+      "q": "Plastic items designed to be discarded after a single brief use, like straws and sachets, are called what?",
+      "a": "Single-Use Plastics",
+      "options": [
+        "Single-Use Plastics",
+        "Microplastics",
+        "Hazardous Plastics",
+        "Non-Recyclable Synthetics"
+      ]
+    },
+    {
+      "q": "What do you call organisms legally protected from hunting, logging, capture, or trade by conservation laws?",
+      "a": "Protected Species",
+      "options": [
+        "Protected Species",
+        "Endemic Species",
+        "Keystone Species",
+        "Invasive Species"
+      ]
+    },
+    {
+      "q": "What scientific field focuses on studying biodiversity and preventing species extinctions?",
+      "a": "Conservation Biology",
+      "options": [
+        "Conservation Biology",
+        "Ecology",
+        "Taxonomy",
+        "Environmental Chemistry"
+      ]
+    },
+    {
+      "q": "What evaluation process identifies and assesses potential environmental impacts of proposed projects?",
+      "a": "Environmental Impact Assessment (EIA)",
+      "options": [
+        "Environmental Impact Assessment (EIA)",
+        "Strategic Risk Review",
+        "Ecosystem Audit",
+        "Conservation Assessment"
+      ]
+    },
+    {
+      "q": "What concept describes progress that satisfies present needs without compromising future generations?",
+      "a": "Sustainable Development",
+      "options": [
+        "Sustainable Development",
+        "Ecological Footprint",
+        "Net Zero Growth",
+        "Green Transition"
+      ]
+    },
+    {
+      "q": "What coastal area serves as a transition zone where river freshwater mixes with sea saltwater?",
+      "a": "Estuary",
+      "options": [
+        "Estuary",
+        "Intertidal Zone",
+        "Ecotone",
+        "Benthic Zone"
+      ]
+    },
+    {
+      "q": "What seashore area is exposed to air during low tide and submerged under sea water during high tide?",
+      "a": "Intertidal Zone",
+      "options": [
+        "Intertidal Zone",
+        "Estuary",
+        "Pelagic Zone",
+        "Abyssal Zone"
+      ]
+    },
+    {
+      "q": "What boundary or transition zone occurs between two distinct biomes or ecological communities?",
+      "a": "Ecotone",
+      "options": [
+        "Ecotone",
+        "Niche",
+        "Habitat",
+        "Biome Edge"
+      ]
+    },
+    {
+      "q": "What scientific term describes an organism capable of synthesizing its own food from inorganic sources?",
+      "a": "Autotroph",
+      "options": [
+        "Autotroph",
+        "Heterotroph",
+        "Detritivore",
+        "Decomposer"
+      ]
+    },
+    {
+      "q": "What scientific term describes an organism that must obtain nutrition by consuming other living things?",
+      "a": "Heterotroph",
+      "options": [
+        "Heterotroph",
+        "Autotroph",
+        "Producer",
+        "Chemograph"
+      ]
+    },
+    {
+      "q": "What competition occurs between individuals belonging to the same species?",
+      "a": "Intraspecific Competition",
+      "options": [
+        "Intraspecific Competition",
+        "Interspecific Competition",
+        "Inter-Trophic Competition",
+        "Competitive Exclusion"
+      ]
+    },
+    {
+      "q": "What competition occurs between individuals belonging to different species?",
+      "a": "Interspecific Competition",
+      "options": [
+        "Interspecific Competition",
+        "Intraspecific Competition",
+        "Community Competition",
+        "Symbiotic Competition"
+      ]
+    },
+    {
+      "q": "What pathways describe how chemical elements circulate through Earth's biotic and abiotic systems?",
+      "a": "Biogeochemical Cycles",
+      "options": [
+        "Biogeochemical Cycles",
+        "Trophic Cascades",
+        "Geological Transformations",
+        "Ecological Transitions"
+      ]
+    },
+    {
+      "q": "What biological process converts atmospheric nitrogen gas (N₂) into biologically usable compounds?",
+      "a": "Nitrogen Fixation",
+      "options": [
+        "Nitrogen Fixation",
+        "Denitrification",
+        "Nitrification",
+        "Ammonification"
+      ]
+    },
+    {
+      "q": "What process involves soil bacteria converting nitrates back into atmospheric nitrogen gas?",
+      "a": "Denitrification",
+      "options": [
+        "Denitrification",
+        "Nitrogen Fixation",
+        "Nitrification",
+        "Assimilation"
+      ]
+    },
+    {
+      "q": "Which Earth sphere encompasses the solid, rigid outer crust and upper mantle?",
+      "a": "Lithosphere",
+      "options": [
+        "Lithosphere",
+        "Hydrosphere",
+        "Atmosphere",
+        "Biosphere"
+      ]
+    },
+    {
+      "q": "Which Earth sphere includes all liquid, frozen, and gaseous water found across the planet?",
+      "a": "Hydrosphere",
+      "options": [
+        "Hydrosphere",
+        "Lithosphere",
+        "Atmosphere",
+        "Biosphere"
+      ]
+    },
+    {
+      "q": "What form of water pollution involves fine terrestrial soil particles settling onto riverbeds and suffocating life?",
+      "a": "Siltation",
+      "options": [
+        "Siltation",
+        "Eutrophication",
+        "Leaching",
+        "Anoxia"
+      ],
+      "link": 42
+    },
+    {
+      "q": "What Philippine slash-and-burn farming system involves clearing and burning forests for agriculture?",
+      "a": "Kaingin System",
+      "options": [
+        "Kaingin System",
+        "Terracing",
+        "Contour Plowing",
+        "Crop Rotation"
+      ],
+      "link": 38
+    },
+    {
+      "q": "What critically endangered dwarf buffalo species is endemic strictly to the island of Mindoro, Philippines?",
+      "a": "Tamaraw",
+      "options": [
+        "Tamaraw",
+        "Carabao",
+        "Philippine Spotted Deer",
+        "Mindoro Tamaraw"
+      ],
+      "link": 39
+    },
+    {
+      "q": "What branch of ecology studies the interactions of an individual organism or single species with its environment?",
+      "a": "Autecology",
+      "options": [
+        "Autecology",
+        "Synecology",
+        "Macroecology",
+        "Population Dynamics"
+      ],
+      "link": 43
+    },
+    {
+      "q": "What branch of ecology studies the structure and interactions of communities of multiple species?",
+      "a": "Synecology",
+      "options": [
+        "Synecology",
+        "Autecology",
+        "Taxonomy",
+        "Ethology"
+      ],
+      "link": 44
+    },
+    {
+      "q": "Any environmental condition that restricts the growth, distribution, or abundance of a population is called a what?",
+      "a": "Limiting Factor",
+      "options": [
+        "Limiting Factor",
+        "Biotic Potential",
+        "Carrying Capacity",
+        "Lapse Rate"
+      ]
+    },
+    {
+      "q": "What is the maximum reproductive capacity of a population under ideal conditions with unlimited resources?",
+      "a": "Biotic Potential",
+      "options": [
+        "Biotic Potential",
+        "Carrying Capacity (K)",
+        "Environmental Resistance",
+        "Lapse Rate"
+      ]
+    },
+    {
+      "q": "What term sums up all environmental factors like disease and predators that limit population growth?",
+      "a": "Environmental Resistance",
+      "options": [
+        "Environmental Resistance",
+        "Biotic Potential",
+        "Carrying Capacity",
+        "Limiting Factor"
+      ]
+    },
+    {
+      "q": "Which ecological law states that population growth is dictated by the scarcest resource available?",
+      "a": "Liebig's Law of the Minimum",
+      "options": [
+        "Liebig's Law of the Minimum",
+        "Shelford's Law of Tolerance",
+        "Lindeman's Efficiency Law",
+        "Ten Percent Law"
+      ],
+      "link": 18
+    },
+    {
+      "q": "Which ecological law states that organisms have specific minimum, maximum, and optimum tolerance ranges?",
+      "a": "Shelford's Law of Tolerance",
+      "options": [
+        "Shelford's Law of Tolerance",
+        "Liebig's Law of the Minimum",
+        "Lindeman's Efficiency Law",
+        "Newton's Law"
+      ],
+      "link": 19
+    },
+    {
+      "q": "In population dynamics, what letter represents the maximum carrying capacity of an ecosystem?",
+      "a": "K",
+      "options": [
+        "K",
+        "r",
+        "N",
+        "B"
+      ],
+      "link": 20
+    },
+    {
+      "q": "Species that invest heavily in a small number of offspring with long lifespans are classified as what?",
+      "a": "K-Selected Species",
+      "options": [
+        "K-Selected Species",
+        "r-Selected Species",
+        "Keystone Species",
+        "Indicator Species"
+      ],
+      "link": 21
+    },
+    {
+      "q": "Species that produce large numbers of offspring quickly with minimal parental investment are classified as what?",
+      "a": "r-Selected Species",
+      "options": [
+        "r-Selected Species",
+        "K-Selected Species",
+        "Endemic Species",
+        "Protected Species"
+      ],
+      "link": 22
+    },
+    {
+      "q": "Why do ecotones often exhibit higher species richness and density than neighboring biomes?",
+      "a": "Edge Effect",
+      "options": [
+        "Edge Effect",
+        "Core Effect",
+        "Trophic Cascade",
+        "Ecological Niche Expansion"
+      ],
+      "link": 26
+    },
+    {
+      "q": "What do you call a species that has a disproportionately large effect on its ecosystem relative to its abundance?",
+      "a": "Keystone Species",
+      "options": [
+        "Keystone Species",
+        "Indicator Species",
+        "Invasive Species",
+        "Dominant Species"
+      ],
+      "link": 23
+    },
+    {
+      "q": "What organism or biological response is monitored to assess the overall health of an ecosystem?",
+      "a": "Bioindicator",
+      "options": [
+        "Bioindicator",
+        "Keystone Species",
+        "Extinct Species",
+        "r-Selected Species"
+      ],
+      "link": 24
+    },
+    {
+      "q": "What microscopic photosynthetic organisms floating in aquatic environments form the base of marine food webs?",
+      "a": "Phytoplankton",
+      "options": [
+        "Phytoplankton",
+        "Zooplankton",
+        "Benthos",
+        "Nekton"
+      ]
+    },
+    {
+      "q": "What microscopic or small floating animals in aquatic ecosystems feed on phytoplankton?",
+      "a": "Zooplankton",
+      "options": [
+        "Zooplankton",
+        "Phytoplankton",
+        "Nekton",
+        "Benthos"
+      ]
+    },
+    {
+      "q": "Which illuminated upper layer of an ocean or lake receives enough sunlight to support photosynthesis?",
+      "a": "Photic Zone (Euphotic Zone)",
+      "options": [
+        "Photic Zone (Euphotic Zone)",
+        "Aphotic Zone",
+        "Benthic Zone",
+        "Abyssal Zone"
+      ]
+    },
+    {
+      "q": "In which deep aquatic zone is sunlight insufficient for photosynthesis to occur?",
+      "a": "Aphotic Zone",
+      "options": [
+        "Aphotic Zone",
+        "Photic Zone",
+        "Intertidal Zone",
+        "Pelagic Zone"
+      ]
+    },
+    {
+      "q": "Which ecological zone encompasses the very bottom sediment surface and subsurface of a body of water?",
+      "a": "Benthic Zone",
+      "options": [
+        "Benthic Zone",
+        "Pelagic Zone",
+        "Photic Zone",
+        "Epitidal Zone"
+      ]
+    },
+    {
+      "q": "What open-water column region of an ocean or lake is away from both the shore and the bottom?",
+      "a": "Pelagic Zone",
+      "options": [
+        "Pelagic Zone",
+        "Benthic Zone",
+        "Intertidal Zone",
+        "Aphotic Zone"
+      ]
+    },
+    {
+      "q": "What metric measures the amount of dissolved oxygen needed by aerobic microbes to break down organic waste in water?",
+      "a": "Biochemical Oxygen Demand (BOD)",
+      "options": [
+        "Biochemical Oxygen Demand (BOD)",
+        "Dissolved Oxygen (DO)",
+        "pH Scale",
+        "Chemical Oxygen Rate"
+      ]
+    },
+    {
+      "q": "What parameter measures the concentration of free, non-compound oxygen molecules dissolved in water?",
+      "a": "Dissolved Oxygen (DO)",
+      "options": [
+        "Dissolved Oxygen (DO)",
+        "Biochemical Oxygen Demand (BOD)",
+        "Water Hardness",
+        "Salinity Level"
+      ]
+    },
+    {
+      "q": "What is the division of a lake or water body into distinct warm upper and cold lower temperature layers called?",
+      "a": "Thermal Stratification",
+      "options": [
+        "Thermal Stratification",
+        "Halocline Layering",
+        "Density Inversion",
+        "Pycnocline Shift"
+      ]
+    },
+    {
+      "q": "What layer in a body of water exhibits a rapid vertical change in salinity over a short depth range?",
+      "a": "Halocline",
+      "options": [
+        "Halocline",
+        "Thermocline",
+        "Pycnocline",
+        "Photic Line"
+      ],
+      "link": 30
+    },
+    {
+      "q": "What layer in an ocean or lake exhibits a rapid increase in water density with depth?",
+      "a": "Pycnocline",
+      "options": [
+        "Pycnocline",
+        "Halocline",
+        "Thermocline",
+        "Benthic Line"
+      ],
+      "link": 31
+    },
+    {
+      "q": "What distinct layer in a body of water exhibits a rapid decrease in temperature with depth?",
+      "a": "Thermocline",
+      "options": [
+        "Thermocline",
+        "Halocline",
+        "Pycnocline",
+        "Aphotic Line"
+      ],
+      "link": 32
+    },
+    {
+      "q": "Fine suspended liquid or solid atmospheric particles like PM2.5 and PM10 are classified as what?",
+      "a": "Particulate Matter",
+      "options": [
+        "Particulate Matter",
+        "Aerosol Leachate",
+        "Microplastics",
+        "Fly Ash"
+      ],
+      "link": 11
+    },
+    {
+      "q": "What logarithmic scale related to hydrogen-ion activity measures how acidic or basic a water or soil sample is?",
+      "a": "pH Scale",
+      "options": [
+        "pH Scale",
+        "Richter Scale",
+        "Beaufort Scale",
+        "Decibel Scale"
+      ],
+      "link": 12
+    },
+    {
+      "q": "What force deflects moving air and water currents to the right in the Northern Hemisphere due to Earth's rotation?",
+      "a": "Coriolis Effect",
+      "options": [
+        "Coriolis Effect",
+        "Albedo Effect",
+        "Greenhouse Effect",
+        "Adiabatic Effect"
+      ],
+      "link": 13
+    },
+    {
+      "q": "What equatorial low-pressure belt where trade winds converge produces heavy precipitation in the Philippines?",
+      "a": "Intertropical Convergence Zone (ITCZ)",
+      "options": [
+        "Intertropical Convergence Zone (ITCZ)",
+        "Subtropical High",
+        "Trade Wind Ridge",
+        "Coriolis Zone"
+      ]
+    },
+    {
+      "q": "What fraction of incoming solar radiation is reflected back into space by a surface like snow or ice?",
+      "a": "Albedo Effect",
+      "options": [
+        "Albedo Effect",
+        "Greenhouse Effect",
+        "Radiative Forcing",
+        "Lapse Rate"
+      ],
+      "link": 15
+    },
+    {
+      "q": "What dry area forms on the leeward side of a mountain range because moisture is dropped on the windward slope?",
+      "a": "Rain Shadow Effect",
+      "options": [
+        "Rain Shadow Effect",
+        "Orographic Shadow",
+        "Adiabatic Zone",
+        "Albedo Effect"
+      ]
+    },
+    {
+      "q": "What type of precipitation occurs when moist air masses are forced to rise over elevated mountain ranges?",
+      "a": "Orographic Precipitation",
+      "options": [
+        "Orographic Precipitation",
+        "Frontal Precipitation",
+        "Convective Precipitation",
+        "Cyclonic Rainfall"
+      ]
+    },
+    {
+      "q": "What microscopic solid or liquid particles suspended in air scatter sunlight and influence climate?",
+      "a": "Aerosols",
+      "options": [
+        "Aerosols",
+        "Particulates",
+        "Microplastics",
+        "Fly Ash"
+      ]
+    },
+    {
+      "q": "What temperature reduction occurs when an elevated air mass expands as pressure drops without exchanging heat?",
+      "a": "Adiabatic Cooling",
+      "options": [
+        "Adiabatic Cooling",
+        "Radiative Cooling",
+        "Lapse Rate Shift",
+        "Thermal Inversion"
+      ],
+      "link": 16
+    },
+    {
+      "q": "What atmospheric condition occurs when a warm air layer traps cooler air near the ground, accumulating pollution?",
+      "a": "Temperature Inversion",
+      "options": [
+        "Temperature Inversion",
+        "Adiabatic Cooling",
+        "Lapse Inversion",
+        "Thermal Updraft"
+      ],
+      "link": 17
+    },
+    {
+      "q": "What urban atmospheric layer extends from ground level up to the average roof height of buildings?",
+      "a": "Urban Canopy Layer",
+      "options": [
+        "Urban Canopy Layer",
+        "Boundary Layer",
+        "Micro-Troposphere",
+        "Surface Inversion"
+      ]
+    },
+    {
+      "q": "What term describes the rate at which atmospheric temperature decreases with increasing altitude in the troposphere?",
+      "a": "Lapse Rate",
+      "options": [
+        "Lapse Rate",
+        "Adiabatic Rate",
+        "Thermal Gradient",
+        "Radiative Index"
+      ]
+    },
+    {
+      "q": "What term measures the net change in Earth's energy balance between incoming solar energy and outgoing heat?",
+      "a": "Radiative Forcing",
+      "options": [
+        "Radiative Forcing",
+        "Albedo Factor",
+        "Greenhouse Index",
+        "Solar Constant"
+      ]
+    },
+    {
+      "q": "Environmental impacts, chemical pollutants, or climate shifts originating directly from human activities are called what?",
+      "a": "Anthropogenic",
+      "options": [
+        "Anthropogenic",
+        "Xenobiotic",
+        "Biotic",
+        "Ecotoxic"
+      ]
+    },
+    {
+      "q": "What term describes a chemical foreign to an organism or biological system, like a synthetic pesticide?",
+      "a": "Xenobiotic",
+      "options": [
+        "Xenobiotic",
+        "Anthropogenic",
+        "Biomagnet",
+        "Heavy Metal"
+      ]
+    },
+    {
+      "q": "Toxic organic compounds that resist environmental degradation and travel long distances in ecosystems are called what?",
+      "a": "Persistent Organic Pollutants (POPs)",
+      "options": [
+        "Persistent Organic Pollutants (POPs)",
+        "Xenobiotic Microplastics",
+        "Aerosol Pollutants",
+        "Heavy Metals"
+      ]
+    },
+    {
+      "q": "What ocean depth threshold marks where calcium carbonate dissolves faster than it is supplied?",
+      "a": "Carbonate Compensation Depth (CCD)",
+      "options": [
+        "Carbonate Compensation Depth (CCD)",
+        "Benthic Threshold",
+        "Aphotic Boundary",
+        "Halocline Depth"
+      ]
+    },
+    {
+      "q": "What type of lake has high nutrient concentrations, dense algal growth, and low oxygen levels at depth?",
+      "a": "Eutrophic Lake",
+      "options": [
+        "Eutrophic Lake",
+        "Oligotrophic Lake",
+        "Mesotrophic Lake",
+        "Anoxic Lake"
+      ]
+    },
+    {
+      "q": "What deep, clear lake type has low nutrient levels, minimal algal growth, and high dissolved oxygen at depth?",
+      "a": "Oligotrophic Lake",
+      "options": [
+        "Oligotrophic Lake",
+        "Eutrophic Lake",
+        "Mesotrophic Lake",
+        "Dystrophic Lake"
+      ]
+    },
+    {
+      "q": "What process describes soluble soil nutrients or toxic pollutants dissolving and washing downward with water?",
+      "a": "Leaching",
+      "options": [
+        "Leaching",
+        "Siltation",
+        "Sorption",
+        "Eutrophication"
+      ]
+    },
+    {
+      "q": "What biological process produces methane gas (CH₄) via anaerobic microorganisms in oxygen-free wetlands or landfills?",
+      "a": "Methanogenesis",
+      "options": [
+        "Methanogenesis",
+        "Denitrification",
+        "Nitrogen Fixation",
+        "Eutrophication"
+      ],
+      "link": 36
+    },
+    {
+      "q": "What physical and chemical process involves a substance becoming attached to or taken up by another material?",
+      "a": "Sorption",
+      "options": [
+        "Sorption",
+        "Leaching",
+        "Siltation",
+        "Methanogenesis"
+      ]
+    },
+    {
+      "q": "What aquatic condition describes a total or near-total absence of dissolved oxygen in water?",
+      "a": "Anoxia",
+      "options": [
+        "Anoxia",
+        "Hypoxia",
+        "Eutrophication",
+        "Thermal Stratification"
+      ],
+      "link": 34
+    },
+    {
+      "q": "What term describes a low dissolved oxygen condition in water (typically below 2 mg/L) that stresses aquatic life?",
+      "a": "Hypoxia",
+      "options": [
+        "Hypoxia",
+        "Anoxia",
+        "Eutrophication",
+        "Siltation"
+      ],
+      "link": 35
+    },
+    {
+      "q": "What eco-friendly technology uses green plants and associated microbes to clean up pollutants in soil or water?",
+      "a": "Phytoremediation",
+      "options": [
+        "Phytoremediation",
+        "Composting",
+        "Biomagnification",
+        "Carbon Capture"
+      ],
+      "link": 37
+    }
+  ],
+  "hard": [
+    {
+      "id": 0,
+      "q": "The global biodiversity target under the Kunming-Montreal Framework aiming to conserve at least 30% of Earth's land and ocean areas by 2030 is known as the ____.",
+      "a": [
+        "30 by 30 Target",
+        "30 by 30",
+        "30x30 Target",
+        "30x30"
+      ]
+    },
+    {
+      "id": 1,
+      "q": "According to Lindeman's Efficiency Law, approximately ____ of energy is transferred from one trophic level to the next higher level.",
+      "a": [
+        "10%",
+        "10 percent",
+        "10 %"
+      ]
+    },
+    {
+      "id": 2,
+      "q": "Synthetic plastic particles smaller than ____ found widespread across ecosystems are classified as microplastics.",
+      "a": [
+        "5 mm",
+        "5 millimeters",
+        "5mm"
+      ]
+    },
+    {
+      "id": 3,
+      "q": "The Philippine law known as the Ecological Solid Waste Management Act of 2000 is ____.",
+      "a": [
+        "RA 9003",
+        "Republic Act 9003",
+        "Republic Act No 9003"
+      ]
+    },
+    {
+      "id": 4,
+      "q": "The Philippine law known as the Clean Air Act of 1999 is ____.",
+      "a": [
+        "RA 8749",
+        "Republic Act 8749",
+        "Republic Act No 8749"
+      ]
+    },
+    {
+      "id": 5,
+      "q": "The Philippine law known as the Clean Water Act of 2004 is ____.",
+      "a": [
+        "RA 9275",
+        "Republic Act 9275",
+        "Republic Act No 9275"
+      ]
+    },
+    {
+      "id": 6,
+      "q": "The Philippine law protecting wild flora, fauna, and their natural habitats is the Wildlife Resources Conservation and Protection Act, also known as ____.",
+      "a": [
+        "RA 9147",
+        "Republic Act 9147",
+        "Republic Act No 9147"
+      ]
+    },
+    {
+      "id": 7,
+      "q": "The National Integrated Protected Areas System Act of 1992 in the Philippines is ____.",
+      "a": [
+        "RA 7586",
+        "Republic Act 7586",
+        "Republic Act No 7586",
+        "RA 11038"
+      ]
+    },
+    {
+      "id": 8,
+      "q": "The primary greenhouse gas produced by burning fossil fuels and deforestation has the chemical formula ____.",
+      "a": [
+        "CO2",
+        "Carbon Dioxide",
+        "CO₂"
+      ]
+    },
+    {
+      "id": 9,
+      "q": "Rainwater made abnormally acidic by reactions with atmospheric sulfur dioxide and nitrogen oxides is called ____.",
+      "a": [
+        "Acid Rain",
+        "Acid Precipitation"
+      ]
+    },
+    {
+      "id": 10,
+      "q": "Synthetic industrial chemicals formerly used in refrigeration that destroy stratospheric ozone molecules are known as ____.",
+      "a": [
+        "Chlorofluorocarbons",
+        "CFCs",
+        "CFC"
+      ]
+    },
+    {
+      "id": 11,
+      "q": "Fine suspended solid particles or liquid droplets in the air labeled as PM2.5 and PM10 are classified as ____.",
+      "a": [
+        "Particulate Matter",
+        "PM",
+        "PM2.5",
+        "PM10"
+      ]
+    },
+    {
+      "id": 12,
+      "q": "The logarithmic scale related to hydrogen-ion activity used to describe acidity or alkalinity is the ____.",
+      "a": [
+        "pH Scale",
+        "pH"
+      ]
+    },
+    {
+      "id": 13,
+      "q": "The apparent deflection of moving air and water currents caused by Earth's rotation is called the ____.",
+      "a": [
+        "Coriolis Effect",
+        "Coriolis Force"
+      ]
+    },
+    {
+      "id": 14,
+      "q": "The equatorial low-pressure belt where trade winds converge to produce heavy rainfall in the Philippines is the ____.",
+      "a": [
+        "Intertropical Convergence Zone",
+        "ITCZ"
+      ]
+    },
+    {
+      "id": 15,
+      "q": "The fraction of incoming solar radiation reflected back into space by a surface like snow or ice is known as the ____.",
+      "a": [
+        "Albedo Effect",
+        "Albedo"
+      ]
+    },
+    {
+      "id": 16,
+      "q": "The temperature reduction that occurs when an elevated air mass expands as atmospheric pressure drops without exchanging heat is called ____.",
+      "a": [
+        "Adiabatic Cooling",
+        "Adiabatic Process"
+      ]
+    },
+    {
+      "id": 17,
+      "q": "An atmospheric condition where a layer of warm air traps cooler air near the ground, causing pollution to accumulate, is a ____.",
+      "a": [
+        "Temperature Inversion",
+        "Thermal Inversion"
+      ]
+    },
+    {
+      "id": 18,
+      "q": "Ecological growth is dictated not by total resources available, but by the scarcest resource, according to ____.",
+      "a": [
+        "Liebig's Law of the Minimum",
+        "Liebigs Law of the Minimum",
+        "Law of the Minimum"
+      ]
+    },
+    {
+      "id": 19,
+      "q": "The principle stating that organisms have specific minimum, maximum, and optimum ranges of tolerance for environmental factors is ____.",
+      "a": [
+        "Shelford's Law of Tolerance",
+        "Shelfords Law of Tolerance",
+        "Law of Tolerance"
+      ]
+    },
+    {
+      "id": 20,
+      "q": "In population dynamics, the letter ____ represents the maximum carrying capacity of an ecosystem.",
+      "a": [
+        "K",
+        "Carrying Capacity"
+      ]
+    },
+    {
+      "id": 21,
+      "q": "Species that invest heavily in a small number of offspring with long lifespans and high parental care are ____.",
+      "a": [
+        "K-selected species",
+        "K selected species",
+        "K-selected"
+      ]
+    },
+    {
+      "id": 22,
+      "q": "Species that produce large numbers of offspring quickly with minimal parental investment are ____.",
+      "a": [
+        "r-selected species",
+        "r selected species",
+        "r-selected"
+      ]
+    },
+    {
+      "id": 23,
+      "q": "A species that has a disproportionately large effect on its natural environment relative to its abundance is called a ____.",
+      "a": [
+        "Keystone Species",
+        "Keystone"
+      ]
+    },
+    {
+      "id": 24,
+      "q": "An organism or biological response monitored to assess the overall health and quality of an ecosystem is a ____.",
+      "a": [
+        "Bioindicator",
+        "Biological Indicator",
+        "Indicator Species"
+      ]
+    },
+    {
+      "id": 25,
+      "q": "A species native and strictly restricted to a specific geographic area, like the Tamaraw in Mindoro, is an ____.",
+      "a": [
+        "Endemic Species",
+        "Endemic"
+      ]
+    },
+    {
+      "id": 26,
+      "q": "The higher species richness and density often observed in an ecotone compared to neighboring biomes is known as the ____.",
+      "a": [
+        "Edge Effect",
+        "Edge Effect Phenomenon"
+      ]
+    },
+    {
+      "id": 27,
+      "q": "The toxic liquid formed when rainwater percolates through buried solid waste in a landfill is called ____.",
+      "a": [
+        "Leachate",
+        "Landfill Leachate"
+      ]
+    },
+    {
+      "id": 28,
+      "q": "The biological metric measuring the amount of dissolved oxygen needed by aerobic microorganisms to break down organic waste in water is ____.",
+      "a": [
+        "Biochemical Oxygen Demand",
+        "BOD"
+      ]
+    },
+    {
+      "id": 29,
+      "q": "The parameter measuring the concentration of free, non-compound oxygen molecules dissolved in water is ____.",
+      "a": [
+        "Dissolved Oxygen",
+        "DO"
+      ]
+    },
+    {
+      "id": 30,
+      "q": "A layer in a body of water where salinity changes rapidly with depth is called a ____.",
+      "a": [
+        "Halocline",
+        "Halocline Layer"
+      ]
+    },
+    {
+      "id": 31,
+      "q": "A layer in an ocean or lake where water density increases rapidly with depth is called a ____.",
+      "a": [
+        "Pycnocline",
+        "Pycnocline Layer"
+      ]
+    },
+    {
+      "id": 32,
+      "q": "A distinct layer in a body of water where temperature changes rapidly with depth is called a ____.",
+      "a": [
+        "Thermocline",
+        "Thermal Layer"
+      ]
+    },
+    {
+      "id": 33,
+      "q": "The ocean depth threshold below which calcium carbonate dissolves faster than it is supplied is the ____.",
+      "a": [
+        "Carbonate Compensation Depth",
+        "CCD"
+      ]
+    },
+    {
+      "id": 34,
+      "q": "An aquatic condition characterized by a total or near-total absence of dissolved oxygen in water is ____.",
+      "a": [
+        "Anoxia",
+        "Anoxic Condition"
+      ]
+    },
+    {
+      "id": 35,
+      "q": "An aquatic condition of low dissolved oxygen that stresses aquatic life is ____.",
+      "a": [
+        "Hypoxia",
+        "Hypoxic Condition"
+      ]
+    },
+    {
+      "id": 36,
+      "q": "The biological production of methane gas by anaerobic microorganisms in oxygen-free environments is called ____.",
+      "a": [
+        "Methanogenesis",
+        "Methane Production"
+      ]
+    },
+    {
+      "id": 37,
+      "q": "The use of living green plants and associated microbes to clean up, extract, or neutralize pollutants in soil or water is called ____.",
+      "a": [
+        "Phytoremediation",
+        "Plant Remediation"
+      ]
+    },
+    {
+      "id": 38,
+      "q": "The slash-and-burn farming system in the Philippines that involves clearing and burning forests for agriculture is the ____.",
+      "a": [
+        "Kaingin System",
+        "Kaingin"
+      ]
+    },
+    {
+      "id": 39,
+      "q": "The critically endangered dwarf buffalo endemic strictly to the island of Mindoro is the ____.",
+      "a": [
+        "Tamaraw",
+        "Mindoro Dwarf Buffalo"
+      ]
+    },
+    {
+      "id": 40,
+      "q": "The Philippine government agency responsible for weather forecasting, climate monitoring, and typhoon advisories is ____.",
+      "a": [
+        "PAGASA",
+        "Philippine Atmospheric Geophysical and Astronomical Services Administration"
+      ]
+    },
+    {
+      "id": 41,
+      "q": "The Philippine government agency that monitors volcanic eruptions, earthquakes, and tsunamis is ____.",
+      "a": [
+        "PHIVOLCS",
+        "Philippine Institute of Volcanology and Seismology"
+      ]
+    },
+    {
+      "id": 42,
+      "q": "Water pollution where fine terrestrial soil particles settle onto riverbeds and suffocate aquatic life is called ____.",
+      "a": [
+        "Siltation",
+        "Sedimentation"
+      ]
+    },
+    {
+      "id": 43,
+      "q": "The branch of ecology studying the interactions of an individual organism or single species with its environment is ____.",
+      "a": [
+        "Autecology"
+      ]
+    },
+    {
+      "id": 44,
+      "q": "The branch of ecology studying the structure and interactions of communities of multiple species in a shared area is ____.",
+      "a": [
+        "Synecology"
+      ]
+    }
+  ]
+};
+
+function shuffleArray(array) {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
+
+function getRandomQuestions(category, count, excludeLinks = new Set()) {
+    const coverageKey = 'envisciQuizCoverage_v1_' + category;
+    let deck = [];
+
+    try {
+        deck = JSON.parse(localStorage.getItem(coverageKey) || '[]');
+    } catch (e) {
+        deck = [];
+    }
+
+    const maxIndex = questionBank[category].length - 1;
+
+    // Clean old/corrupt decks and remove duplicate indexes.
+    deck = [...new Set(
+        deck.filter(i => Number.isInteger(i) && i >= 0 && i <= maxIndex)
+    )];
+
+    const used = new Set(deck);
+    const available = questionBank[category]
+        .map((_, i) => i)
+        .filter(i => !used.has(i));
+
+    // Every question gets a turn before the category repeats.
+    if (available.length < count) {
+        deck = shuffleArray(questionBank[category].map((_, i) => i));
+    } else if (deck.length < count) {
+        deck = [...deck, ...shuffleArray(available)];
+    }
+
+    // Skip MCQs that test the same concept as a fill-in question already chosen for
+    // this quiz. Skipped questions stay in the deck for a later quiz.
+    const isBlocked = i => {
+        const link = questionBank[category][i].link;
+        return link !== undefined && excludeLinks.has(link);
+    };
+    const selectedIndexes = [];
+    const remaining = [];
+    deck.forEach(i => {
+        if (selectedIndexes.length < count && !isBlocked(i)) selectedIndexes.push(i);
+        else remaining.push(i);
+    });
+    // Rare fallback: not enough non-duplicate questions left in the deck.
+    while (selectedIndexes.length < count && remaining.length) {
+        selectedIndexes.push(remaining.shift());
+    }
+    deck = remaining;
+    try { localStorage.setItem(coverageKey, JSON.stringify(deck)); } catch (e) {}
+
+    return selectedIndexes.map(i => {
+        const q = questionBank[category][i];
+        const versions = [q.q, q.q1, q.q2, q.q3].filter(Boolean);
+        const selectedQuestion = versions[Math.floor(Math.random() * versions.length)];
+
+        if (q.options) {
+            return {
+                ...q,
+                q: selectedQuestion,
+                options: shuffleArray(q.options),
+                category
+            };
+        }
+
+        return { ...q, q: selectedQuestion, category };
+    });
+}
+
+function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+}
+
+function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+}
+
+// Start Quiz Session
+function startQuiz() {
+    timerMode = document.getElementById('timerModeSelect').value;
+    
+    // Select Questions
+    // Pick the fill-in round first so the MCQ rounds can avoid repeating its concepts.
+    const hardQs = getRandomQuestions('hard', 10);
+    const usedConcepts = new Set(hardQs.map(q => q.id));
+    const easyQs = getRandomQuestions('easy', 20, usedConcepts);
+    const mediumQs = getRandomQuestions('medium', 20, usedConcepts);
+
+    currentQuizQuestions = [...easyQs, ...mediumQs, ...hardQs];
+    currentQuestionIndex = 0;
+    userAnswers = [];
+    scores = { easy: 0, medium: 0, hard: 0 };
+    timeSpentTotal = 0;
+
+    // Configure Timer
+    clearInterval(timerInterval);
+    const timerContainer = document.getElementById('timerContainer');
+    
+    if (timerMode === 'none') {
+        timerContainer.classList.add('hidden');
+    } else {
+        timerContainer.classList.remove('hidden');
+        if (timerMode === 'overall') {
+            timeRemaining = parseInt(document.getElementById('overallTimeSelect').value, 10);
+        } else if (timerMode === 'perQuestion') {
+            perQuestionTimeLimit = parseInt(document.getElementById('perQuestionTimeSelect').value, 10);
+            timeRemaining = perQuestionTimeLimit;
+        }
+    }
+
+    document.getElementById('startScreen').classList.add('hidden');
+    document.getElementById('resultsScreen').classList.add('hidden');
+    document.getElementById('quizScreen').classList.remove('hidden');
+
+    showQuestion();
+    startTimer();
+}
+
+// Timer Logic
+function startTimer() {
+    if (timerMode === 'none') return;
+
+    updateTimerDisplay();
+
+    timerInterval = setInterval(() => {
+        timeRemaining--;
+        timeSpentTotal++;
+
+        updateTimerDisplay();
+
+        if (timeRemaining <= 0) {
+            if (timerMode === 'overall') {
+                clearInterval(timerInterval);
+                autoSubmitRemaining();
+                showResults(true); // Timed out overall
+            } else if (timerMode === 'perQuestion') {
+                // Time up for current question -> Save blank & auto advance
+                saveAnswer("", true);
+            }
+        }
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    const timerText = document.getElementById('timerText');
+    const timerContainer = document.getElementById('timerContainer');
+    
+    timerText.innerText = formatTime(timeRemaining);
+
+    // Visual warnings
+    timerContainer.classList.remove('warn', 'danger');
+    if (timerMode === 'overall') {
+        if (timeRemaining <= 60) timerContainer.classList.add('danger');
+        else if (timeRemaining <= 180) timerContainer.classList.add('warn');
+    } else if (timerMode === 'perQuestion') {
+        if (timeRemaining <= 5) timerContainer.classList.add('danger');
+        else if (timeRemaining <= 10) timerContainer.classList.add('warn');
+    }
+}
+
+// Render Current Question
+function showQuestion() {
+    const q = currentQuizQuestions[currentQuestionIndex];
+
+    // Reset per-question timer if applicable
+    if (timerMode === 'perQuestion') {
+        timeRemaining = perQuestionTimeLimit;
+        updateTimerDisplay();
+    }
+    
+    // Update Header Progress
+    document.getElementById('progressText').innerText = `Question ${currentQuestionIndex + 1} of 50`;
+    document.getElementById('progressBar').style.width = `${((currentQuestionIndex + 1) / 50) * 100}%`;
+
+    const badge = document.getElementById('roundBadge');
+    if (q.category === 'easy') {
+        badge.innerText = "Easy Round";
+        badge.className = "round-badge badge-easy";
+    } else if (q.category === 'medium') {
+        badge.innerText = "Medium Round";
+        badge.className = "round-badge badge-medium";
+    } else {
+        badge.innerText = "Hard Round (Fill-in)";
+        badge.className = "round-badge badge-hard";
+    }
+
+    // Set Question Text
+    document.getElementById('questionText').innerText = q.q;
+
+    // Render Controls
+    const mcContainer = document.getElementById('mcContainer');
+    const fitbContainer = document.getElementById('fitbContainer');
+    const fitbInput = document.getElementById('fitbInput');
+
+    if (q.category === 'easy' || q.category === 'medium') {
+        mcContainer.classList.remove('hidden');
+        fitbContainer.classList.add('hidden');
+        mcContainer.innerHTML = '';
+
+        q.options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt;
+            btn.onclick = () => selectOption(opt);
+            mcContainer.appendChild(btn);
+        });
+    } else {
+        mcContainer.classList.add('hidden');
+        fitbContainer.classList.remove('hidden');
+        fitbInput.value = '';
+        fitbInput.focus();
+    }
+}
+
+function selectOption(selectedOpt) {
+    saveAnswer(selectedOpt);
+}
+
+function handleNext() {
+    const q = currentQuizQuestions[currentQuestionIndex];
+    if (q.category === 'hard') {
+        const inputVal = document.getElementById('fitbInput').value.trim();
+        saveAnswer(inputVal);
+    }
+}
+
+function saveAnswer(answer, isTimeOut = false) {
+    const q = currentQuizQuestions[currentQuestionIndex];
+    let isCorrect = false;
+
+    if (!isTimeOut && answer !== "") {
+        // Normalize answers so fill-in-the-blank is forgiving for Grade 4 students
+        // while still requiring the important science idea.
+        const normalizeAnswer = (value) => String(value)
+            .replace(/[\u2080-\u2089]/g, d => String(d.charCodeAt(0) - 0x2080))
+            .toLowerCase()
+            .replace(/['\u2019]s\b/g, "")
+            .replace(/[→⇒]/g, " to ")
+            .replace(/[^a-z0-9%]+/g, " ")
+            .replace(/\s+/g, " ")
+            .trim();
+
+        // Common Grade-4-friendly paraphrases. These make natural answers such as
+        // "it gets higher" equivalent to "becomes higher" without accepting unrelated terms.
+        const simplifyPhrase = (value) => normalizeAnswer(value)
+            .replace(/\bgets\b/g, "becomes")
+            .replace(/\bget\b/g, "become")
+            .replace(/\bgoes up\b/g, "increases")
+            .replace(/\bgo up\b/g, "increase")
+            .replace(/\bgrows\b/g, "increases")
+            .replace(/\bgrow\b/g, "increase")
+            .replace(/\bneeds\b/g, "requires")
+            .replace(/\bneed\b/g, "require")
+            .replace(/\bcan\b/g, "")
+            .replace(/\bmay\b/g, "")
+            .replace(/\bmight\b/g, "")
+            .replace(/\bcould\b/g, "")
+            .replace(/\bwould\b/g, "")
+            .replace(/\bwill\b/g, "")
+            .replace(/\bdoes not\b/g, "not")
+            .replace(/\bdoesnt\b/g, "not")
+            .replace(/\bdo not\b/g, "not")
+            .replace(/\bdont\b/g, "not")
+            .replace(/\bit is\b/g, "")
+            .replace(/\bit\b/g, "")
+            .replace(/\bthis\b/g, "")
+            .replace(/\bthat\b/g, "")
+            .replace(/\bthey\b/g, "")
+            .replace(/\bhe\b/g, "")
+            .replace(/\bshe\b/g, "")
+            .replace(/\bit becomes\b/g, "becomes")
+            .replace(/\bthe\b/g, "")
+            .replace(/\ban?\b/g, "")
+            .replace(/\bto\b/g, "")
+            .replace(/\bof\b/g, "")
+            .replace(/\bincreases\b/g, "increase")
+            .replace(/\bdecreases\b/g, "decrease")
+            .replace(/\bcontinues\b/g, "continue")
+            .replace(/\brequires\b/g, "require")
+            .replace(/\bproduces\b/g, "produce")
+            .replace(/\bchanges\b/g, "change")
+            .replace(/\bforms\b/g, "form")
+            .replace(/\boccurs\b/g, "occur")
+            .replace(/\babsorbs\b/g, "absorb")
+            .replace(/\breflects\b/g, "reflect")
+            .replace(/\btransfers\b/g, "transfer")
+            .replace(/\b\s+/g, " ")
+            .trim();
+
+        // Remove words that are already supplied by the question. This allows a child
+        // to answer "becomes higher" instead of repeating "the pitch becomes higher".
+        const removeQuestionWords = (answer, question) => {
+            const qWords = new Set(simplifyPhrase(question).split(" ").filter(w => w.length > 2));
+            return simplifyPhrase(answer).split(" ").filter(w => !qWords.has(w)).join(" ").trim();
+        };
+
+        const phraseMatchesForgivingly = (userValue, validValue) => {
+            const a = simplifyPhrase(userValue);
+            const b = simplifyPhrase(validValue);
+            if (!a || !b) return false;
+            if (a === b) return true;
+
+            // Also compare the essential answer after removing words already present in the question.
+            const aq = removeQuestionWords(userValue, q.q);
+            const bq = removeQuestionWords(validValue, q.q);
+            if (aq && bq && aq === bq) return true;
+
+            // Allow a short natural answer when it contains all essential content words from
+            // the expected answer. This is intentionally conservative: at least 2 content words
+            // must match for phrase answers, or the entire essential answer must be one word.
+            const content = text => simplifyPhrase(text).split(" ").filter(w => w.length > 2 || w.length === 1);
+            const ac = new Set(content(userValue));
+            const bc = content(validValue);
+            if (bc.length >= 2) {
+                const matched = bc.filter(w => ac.has(w)).length;
+                return matched === bc.length;
+            }
+            return false;
+        };
+
+        // Accept harmless singular/plural differences for fill-in answers.
+        // This covers common forms such as kidney/kidneys and body/bodies,
+        // while avoiding words whose singular form already ends in "s".
+        const getAnswerForms = (value) => {
+            const text = String(value).trim();
+            const forms = new Set([normalizeAnswer(text)]);
+            const lower = text.toLowerCase().trim();
+
+            // Plural -> singular
+            if (/[^s]ies$/i.test(lower)) {
+                forms.add(normalizeAnswer(lower.replace(/ies$/i, "y")));
+            } else if (/(ches|shes|xes|zes|ses)$/i.test(lower)) {
+                forms.add(normalizeAnswer(lower.replace(/es$/i, "")));
+            } else if (/[^s]s$/i.test(lower) && !/(ss|us|is)$/i.test(lower)) {
+                forms.add(normalizeAnswer(lower.replace(/s$/i, "")));
+            } else if (/ves$/i.test(lower)) {
+                // Common f/fe -> ves forms (e.g. leaves/leaf, knives/knife)
+                const stem = lower.replace(/ves$/i, "");
+                forms.add(normalizeAnswer(stem + "f"));
+                forms.add(normalizeAnswer(stem + "fe"));
+            }
+
+            // Singular -> plural
+            if (/[^aeiou]y$/i.test(lower)) {
+                forms.add(normalizeAnswer(lower.replace(/y$/i, "ies")));
+            } else if (/(s|x|z|ch|sh)$/i.test(lower) && !/(ss)$/i.test(lower)) {
+                forms.add(normalizeAnswer(lower + "es"));
+            } else if (/f$/i.test(lower)) {
+                forms.add(normalizeAnswer(lower.slice(0, -1) + "ves"));
+            } else if (/fe$/i.test(lower)) {
+                forms.add(normalizeAnswer(lower.slice(0, -2) + "ves"));
+            } else if (!/s$/i.test(lower)) {
+                forms.add(normalizeAnswer(lower + "s"));
+            }
+
+            return forms;
+        };
+
+        const validAnswers = Array.isArray(q.a) ? q.a : [q.a];
+        const acceptedForms = new Set();
+        validAnswers.forEach(validAns => {
+            getAnswerForms(validAns).forEach(form => acceptedForms.add(form));
+        });
+
+        isCorrect = acceptedForms.has(normalizeAnswer(answer));
+
+        // Grade-4-friendly phrase matching for hard/fill-in questions.
+        // This accepts natural paraphrases but does not turn different science terms into matches.
+        if (!isCorrect) {
+            isCorrect = validAnswers.some(validAns => phraseMatchesForgivingly(answer, validAns));
+        }
+    }
+
+    if (isCorrect) {
+        scores[q.category]++;
+    }
+
+    userAnswers.push({
+        question: q.q,
+        userAns: isTimeOut ? "⏰ (Time Expired)" : (answer || "(No Answer)"),
+        correctAns: Array.isArray(q.a) ? q.a[0] : q.a,
+        explanation: q.exp || "",
+        isCorrect: isCorrect,
+        category: q.category
+    });
+
+    currentQuestionIndex++;
+
+    if (currentQuestionIndex < currentQuizQuestions.length) {
+        showQuestion();
+    } else {
+        clearInterval(timerInterval);
+        showResults();
+    }
+}
+
+// Auto-fill unanswered questions if overall timer runs out
+function autoSubmitRemaining() {
+    while (currentQuestionIndex < currentQuizQuestions.length) {
+        const q = currentQuizQuestions[currentQuestionIndex];
+        userAnswers.push({
+            question: q.q,
+            userAns: "⏰ (Time Expired)",
+            correctAns: Array.isArray(q.a) ? q.a[0] : q.a,
+            explanation: q.exp || "",
+            isCorrect: false,
+            category: q.category
+        });
+        currentQuestionIndex++;
+    }
+}
+
+// Show Results Screen
+function showResults(timeOutOccurred = false) {
+    clearInterval(timerInterval);
+    document.getElementById('quizScreen').classList.add('hidden');
+    document.getElementById('resultsScreen').classList.remove('hidden');
+
+    const totalCorrect = scores.easy + scores.medium + scores.hard;
+    const percentage = Math.round((totalCorrect / 50) * 100);
+
+    document.getElementById('finalScore').innerText = `${totalCorrect}/50`;
+    document.getElementById('finalPercent').innerText = `${percentage}%`;
+    document.getElementById('easyScore').innerText = `${scores.easy}/20`;
+    document.getElementById('mediumScore').innerText = `${scores.medium}/20`;
+    document.getElementById('hardScore').innerText = `${scores.hard}/10`;
+
+    const msg = document.getElementById('scoreMessage');
+    if (timeOutOccurred) {
+        msg.innerText = "⏳ Time's Up! Here is how you scored before time ran out:";
+    } else if (percentage >= 90) msg.innerText = "Outstanding performance! Mastery achieved!";
+    else if (percentage >= 75) msg.innerText = "Great job! Strong environmental science knowledge!";
+    else if (percentage >= 50) msg.innerText = "Good effort! Keep reviewing to improve!";
+    else msg.innerText = "Needs practice. Try reviewing the concepts again!";
+
+    const timeSpentText = document.getElementById('timeSpentText');
+    if (timerMode !== 'none') {
+        timeSpentText.innerText = `Total Time Elapsed: ${formatTime(timeSpentTotal)}`;
+    } else {
+        timeSpentText.innerText = "";
+    }
+
+    // Render Question Review
+    const reviewContainer = document.getElementById('reviewContainer');
+    reviewContainer.innerHTML = '';
+
+    userAnswers.forEach((item, idx) => {
+        const div = document.createElement('div');
+        div.className = `review-item ${item.isCorrect ? 'correct' : 'incorrect'}`;
+
+        const explanationHtml = item.explanation && String(item.explanation).trim()
+            ? `<div class="review-explanation">
+                   <strong>Why:</strong> ${escapeHtml(String(item.explanation).trim())}
+               </div>`
+            : '';
+
+        div.innerHTML = `
+            <div class="review-q">${idx + 1}. ${escapeHtml(item.question)}</div>
+            <div class="review-ans">
+                <strong>Your Answer:</strong> ${escapeHtml(item.userAns)}<br>
+                ${!item.isCorrect
+                    ? `<strong>Correct Answer:</strong> ${escapeHtml(item.correctAns)}<br>`
+                    : ''}
+                ${explanationHtml}
+            </div>
+        `;
+
+        reviewContainer.appendChild(div);
+    });
+}
+
+function returnToStart() {
+    clearInterval(timerInterval);
+    document.getElementById('resultsScreen').classList.add('hidden');
+    document.getElementById('startScreen').classList.remove('hidden');
+}
+
+function toggleTheme() {
+    const currentTheme = document.body.getAttribute('data-theme');
+    if (currentTheme === 'dark') {
+        document.body.removeAttribute('data-theme');
+    } else {
+        document.body.setAttribute('data-theme', 'dark');
+    }
+}
+
+// Enter key shortcut for Fill-in-the-blank
+document.getElementById('fitbInput').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        handleNext();
+    }
+});
+</script>
+
+</body>
+</html>
